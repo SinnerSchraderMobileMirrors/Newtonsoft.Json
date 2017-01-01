@@ -239,32 +239,7 @@ namespace Newtonsoft.Json
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            // write closing symbol and calculate new state
-            int levelsToComplete = 0;
-
-            if (_currentPosition.Type == type)
-            {
-                levelsToComplete = 1;
-            }
-            else
-            {
-                int top = Top - 2;
-                for (int i = top; i >= 0; i--)
-                {
-                    int currentLevel = top - i;
-
-                    if (_stack[currentLevel].Type == type)
-                    {
-                        levelsToComplete = i + 2;
-                        break;
-                    }
-                }
-            }
-
-            if (levelsToComplete == 0)
-            {
-                throw JsonWriterException.Create(this, "No token to close.", null);
-            }
+            int levelsToComplete = CalculateLevelsToComplete(type);
 
             for (int i = 0; i < levelsToComplete; i++)
             {
@@ -285,25 +260,7 @@ namespace Newtonsoft.Json
 
                 await WriteEndAsync(token, cancellationToken).ConfigureAwait(false);
 
-                JsonContainerType currentLevelType = Peek();
-
-                switch (currentLevelType)
-                {
-                    case JsonContainerType.Object:
-                        _currentState = State.Object;
-                        break;
-                    case JsonContainerType.Array:
-                        _currentState = State.Array;
-                        break;
-                    case JsonContainerType.Constructor:
-                        _currentState = State.Array;
-                        break;
-                    case JsonContainerType.None:
-                        _currentState = State.Start;
-                        break;
-                    default:
-                        throw JsonWriterException.Create(this, "Unknown JsonType: " + currentLevelType, null);
-                }
+                UpdateCurrentState();
             }
         }
 
