@@ -934,54 +934,12 @@ namespace Newtonsoft.Json
 
         private async Task<object> ParseNumberPositiveInfinityAsync(ReadType readType, CancellationToken cancellationToken)
         {
-            if (await MatchValueWithTrailingSeparatorAsync(JsonConvert.PositiveInfinity, cancellationToken).ConfigureAwait(false))
-            {
-                switch (readType)
-                {
-                    case ReadType.Read:
-                    case ReadType.ReadAsDouble:
-                        if (_floatParseHandling == FloatParseHandling.Double)
-                        {
-                            SetToken(JsonToken.Float, double.PositiveInfinity);
-                            return double.PositiveInfinity;
-                        }
-
-                        break;
-                    case ReadType.ReadAsString:
-                        SetToken(JsonToken.String, JsonConvert.PositiveInfinity);
-                        return JsonConvert.PositiveInfinity;
-                }
-
-                throw JsonReaderException.Create(this, "Cannot read Infinity value.");
-            }
-
-            throw JsonReaderException.Create(this, "Error parsing Infinity value.");
+            return ParseNumberPositiveInfinity(readType, await MatchValueWithTrailingSeparatorAsync(JsonConvert.PositiveInfinity, cancellationToken).ConfigureAwait(false));
         }
 
         private async Task<object> ParseNumberNegativeInfinityAsync(ReadType readType, CancellationToken cancellationToken)
         {
-            if (await MatchValueWithTrailingSeparatorAsync(JsonConvert.NegativeInfinity, cancellationToken).ConfigureAwait(false))
-            {
-                switch (readType)
-                {
-                    case ReadType.Read:
-                    case ReadType.ReadAsDouble:
-                        if (_floatParseHandling == FloatParseHandling.Double)
-                        {
-                            SetToken(JsonToken.Float, double.NegativeInfinity);
-                            return double.NegativeInfinity;
-                        }
-
-                        break;
-                    case ReadType.ReadAsString:
-                        SetToken(JsonToken.String, JsonConvert.NegativeInfinity);
-                        return JsonConvert.NegativeInfinity;
-                }
-
-                throw JsonReaderException.Create(this, "Cannot read -Infinity value.");
-            }
-
-            throw JsonReaderException.Create(this, "Error parsing -Infinity value.");
+            return ParseNumberNegativeInfinity(readType, await MatchValueWithTrailingSeparatorAsync(JsonConvert.NegativeInfinity, cancellationToken).ConfigureAwait(false));
         }
 
         private async Task ParseNumberAsync(ReadType readType, CancellationToken cancellationToken)

@@ -2342,7 +2342,12 @@ namespace Newtonsoft.Json
 
         private object ParseNumberNegativeInfinity(ReadType readType)
         {
-            if (MatchValueWithTrailingSeparator(JsonConvert.NegativeInfinity))
+            return ParseNumberNegativeInfinity(readType, MatchValueWithTrailingSeparator(JsonConvert.NegativeInfinity));
+        }
+
+        private object ParseNumberNegativeInfinity(ReadType readType, bool matched)
+        {
+            if (matched)
             {
                 switch (readType)
                 {
@@ -2367,7 +2372,11 @@ namespace Newtonsoft.Json
 
         private object ParseNumberPositiveInfinity(ReadType readType)
         {
-            if (MatchValueWithTrailingSeparator(JsonConvert.PositiveInfinity))
+            return ParseNumberPositiveInfinity(readType, MatchValueWithTrailingSeparator(JsonConvert.PositiveInfinity));
+        }
+        private object ParseNumberPositiveInfinity(ReadType readType, bool matched)
+        {
+            if (matched)
             {
                 switch (readType)
                 {
