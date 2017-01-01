@@ -243,13 +243,8 @@ namespace Newtonsoft.Json
             return ReadData(append, 0);
         }
 
-        private int ReadData(bool append, int charsRequired)
+        private void PrepareBufferForReadData(bool append, int charsRequired)
         {
-            if (_isEndOfFile)
-            {
-                return 0;
-            }
-
             // char buffer is full
             if (_charsUsed + charsRequired >= _chars.Length - 1)
             {
@@ -299,6 +294,16 @@ namespace Newtonsoft.Json
                     _charsUsed = remainingCharCount;
                 }
             }
+        }
+
+        private int ReadData(bool append, int charsRequired)
+        {
+            if (_isEndOfFile)
+            {
+                return 0;
+            }
+
+            PrepareBufferForReadData(append, charsRequired);
 
             int attemptCharReadCount = _chars.Length - _charsUsed - 1;
 

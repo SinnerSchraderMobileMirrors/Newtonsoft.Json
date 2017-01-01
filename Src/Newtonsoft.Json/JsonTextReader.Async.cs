@@ -137,61 +137,9 @@ namespace Newtonsoft.Json
                 return 0;
             }
 
-            // char buffer is full
-            if (_charsUsed + charsRequired >= _chars.Length - 1)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+            PrepareBufferForReadData(append, charsRequired);
 
-                if (append)
-                {
-                    // copy to new array either double the size of the current or big enough to fit required content
-                    int newArrayLength = Math.Max(_chars.Length * 2, _charsUsed + charsRequired + 1);
-
-                    // increase the size of the buffer
-                    char[] dst = BufferUtils.RentBuffer(_arrayPool, newArrayLength);
-
-                    BlockCopyChars(_chars, 0, dst, 0, _chars.Length);
-
-                    BufferUtils.ReturnBuffer(_arrayPool, _chars);
-
-                    _chars = dst;
-                }
-                else
-                {
-                    int remainingCharCount = _charsUsed - _charPos;
-
-                    if (remainingCharCount + charsRequired + 1 >= _chars.Length)
-                    {
-                        // the remaining count plus the required is bigger than the current buffer size
-                        char[] dst = BufferUtils.RentBuffer(_arrayPool, remainingCharCount + charsRequired + 1);
-
-                        if (remainingCharCount > 0)
-                        {
-                            BlockCopyChars(_chars, _charPos, dst, 0, remainingCharCount);
-                        }
-
-                        BufferUtils.ReturnBuffer(_arrayPool, _chars);
-
-                        _chars = dst;
-                    }
-                    else
-                    {
-                        // copy any remaining data to the beginning of the buffer if needed and reset positions
-                        if (remainingCharCount > 0)
-                        {
-                            BlockCopyChars(_chars, _charPos, _chars, 0, remainingCharCount);
-                        }
-                    }
-
-                    _lineStartPos -= _charPos;
-                    _charPos = 0;
-                    _charsUsed = remainingCharCount;
-                }
-            }
-
-            int attemptCharReadCount = _chars.Length - _charsUsed - 1;
-
-            int charsRead = await _reader.ReadAsync(_chars, _charsUsed, attemptCharReadCount, cancellationToken).ConfigureAwait(false);
+            int charsRead = await _reader.ReadAsync(_chars, _charsUsed, _chars.Length - _charsUsed - 1, cancellationToken).ConfigureAwait(false);
 
             _charsUsed += charsRead;
 
