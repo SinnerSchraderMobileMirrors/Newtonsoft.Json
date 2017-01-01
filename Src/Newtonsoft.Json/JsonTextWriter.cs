@@ -178,18 +178,23 @@ namespace Newtonsoft.Json
         {
             base.Close();
 
+            CloseBufferAndWriter();
+        }
+
+        private void CloseBufferAndWriter()
+        {
             if (_writeBuffer != null)
             {
                 BufferUtils.ReturnBuffer(_arrayPool, _writeBuffer);
                 _writeBuffer = null;
             }
 
-            if (CloseOutput && _writer != null)
+            if (CloseOutput)
             {
 #if !(DOTNET || PORTABLE40 || PORTABLE)
-                _writer.Close();
+                _writer?.Close();
 #else
-                _writer.Dispose();
+                _writer?.Dispose();
 #endif
             }
         }

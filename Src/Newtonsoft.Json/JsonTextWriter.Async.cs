@@ -137,20 +137,7 @@ namespace Newtonsoft.Json
                 await WriteEndAsync(cancellationToken).ConfigureAwait(false);
             }
 
-            if (_writeBuffer != null)
-            {
-                BufferUtils.ReturnBuffer(_arrayPool, _writeBuffer);
-                _writeBuffer = null;
-            }
-
-            if (CloseOutput)
-            {
-#if !(DOTNET || PORTABLE40 || PORTABLE)
-                _writer?.Close();
-#else
-                _writer?.Dispose();
-#endif
-            }
+            CloseBufferAndWriter();
         }
 
         /// <summary>
