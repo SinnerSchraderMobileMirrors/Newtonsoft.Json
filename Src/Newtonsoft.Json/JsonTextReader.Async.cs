@@ -929,28 +929,7 @@ namespace Newtonsoft.Json
 
         private async Task<object> ParseNumberNaNAsync(ReadType readType, CancellationToken cancellationToken)
         {
-            if (await MatchValueWithTrailingSeparatorAsync(JsonConvert.NaN, cancellationToken).ConfigureAwait(false))
-            {
-                switch (readType)
-                {
-                    case ReadType.Read:
-                    case ReadType.ReadAsDouble:
-                        if (_floatParseHandling == FloatParseHandling.Double)
-                        {
-                            SetToken(JsonToken.Float, double.NaN);
-                            return double.NaN;
-                        }
-
-                        break;
-                    case ReadType.ReadAsString:
-                        SetToken(JsonToken.String, JsonConvert.NaN);
-                        return JsonConvert.NaN;
-                }
-
-                throw JsonReaderException.Create(this, "Cannot read NaN value.");
-            }
-
-            throw JsonReaderException.Create(this, "Error parsing NaN value.");
+            return ParseNumberNaN(readType, await MatchValueWithTrailingSeparatorAsync(JsonConvert.NaN, cancellationToken).ConfigureAwait(false));
         }
 
         private async Task<object> ParseNumberPositiveInfinityAsync(ReadType readType, CancellationToken cancellationToken)

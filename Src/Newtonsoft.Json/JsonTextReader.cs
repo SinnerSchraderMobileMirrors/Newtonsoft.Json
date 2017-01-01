@@ -2392,7 +2392,12 @@ namespace Newtonsoft.Json
 
         private object ParseNumberNaN(ReadType readType)
         {
-            if (MatchValueWithTrailingSeparator(JsonConvert.NaN))
+            return ParseNumberNaN(readType, MatchValueWithTrailingSeparator(JsonConvert.NaN));
+        }
+
+        private object ParseNumberNaN(ReadType readType, bool matched)
+        {
+            if (matched)
             {
                 switch (readType)
                 {
