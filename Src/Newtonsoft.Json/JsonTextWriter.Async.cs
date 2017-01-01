@@ -529,14 +529,9 @@ namespace Newtonsoft.Json
 
             if (string.IsNullOrEmpty(DateFormatString))
             {
-                EnsureWriteBuffer();
+                int length = WriteValueToBuffer(value);
 
-                int pos = 0;
-                _writeBuffer[pos++] = _quoteChar;
-                pos = DateTimeUtils.WriteDateTimeString(_writeBuffer, pos, value, null, value.Kind, DateFormatHandling);
-                _writeBuffer[pos++] = _quoteChar;
-
-                await _writer.WriteAsync(_writeBuffer, 0, pos, cancellationToken).ConfigureAwait(false);
+                await _writer.WriteAsync(_writeBuffer, 0, length, cancellationToken).ConfigureAwait(false);
             }
             else
             {
@@ -583,14 +578,9 @@ namespace Newtonsoft.Json
 
             if (string.IsNullOrEmpty(DateFormatString))
             {
-                EnsureWriteBuffer();
+                int length = WriteValueToBuffer(value);
 
-                int pos = 0;
-                _writeBuffer[pos++] = _quoteChar;
-                pos = DateTimeUtils.WriteDateTimeString(_writeBuffer, pos, DateFormatHandling == DateFormatHandling.IsoDateFormat ? value.DateTime : value.UtcDateTime, value.Offset, DateTimeKind.Local, DateFormatHandling);
-                _writeBuffer[pos++] = _quoteChar;
-
-                await _writer.WriteAsync(_writeBuffer, 0, pos, cancellationToken).ConfigureAwait(false);
+                await _writer.WriteAsync(_writeBuffer, 0, length, cancellationToken).ConfigureAwait(false);
             }
             else
             {

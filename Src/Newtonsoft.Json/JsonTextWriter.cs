@@ -610,14 +610,9 @@ namespace Newtonsoft.Json
 
             if (string.IsNullOrEmpty(DateFormatString))
             {
-                EnsureWriteBuffer();
+                int length = WriteValueToBuffer(value);
 
-                int pos = 0;
-                _writeBuffer[pos++] = _quoteChar;
-                pos = DateTimeUtils.WriteDateTimeString(_writeBuffer, pos, value, null, value.Kind, DateFormatHandling);
-                _writeBuffer[pos++] = _quoteChar;
-
-                _writer.Write(_writeBuffer, 0, pos);
+                _writer.Write(_writeBuffer, 0, length);
             }
             else
             {
@@ -625,6 +620,17 @@ namespace Newtonsoft.Json
                 _writer.Write(value.ToString(DateFormatString, Culture));
                 _writer.Write(_quoteChar);
             }
+        }
+
+        private int WriteValueToBuffer(DateTime value)
+        {
+            EnsureWriteBuffer();
+
+            int pos = 0;
+            _writeBuffer[pos++] = _quoteChar;
+            pos = DateTimeUtils.WriteDateTimeString(_writeBuffer, pos, value, null, value.Kind, DateFormatHandling);
+            _writeBuffer[pos++] = _quoteChar;
+            return pos;
         }
 
         /// <summary>
@@ -658,14 +664,9 @@ namespace Newtonsoft.Json
 
             if (string.IsNullOrEmpty(DateFormatString))
             {
-                EnsureWriteBuffer();
+                int length = WriteValueToBuffer(value);
 
-                int pos = 0;
-                _writeBuffer[pos++] = _quoteChar;
-                pos = DateTimeUtils.WriteDateTimeString(_writeBuffer, pos, (DateFormatHandling == DateFormatHandling.IsoDateFormat) ? value.DateTime : value.UtcDateTime, value.Offset, DateTimeKind.Local, DateFormatHandling);
-                _writeBuffer[pos++] = _quoteChar;
-
-                _writer.Write(_writeBuffer, 0, pos);
+                _writer.Write(_writeBuffer, 0, length);
             }
             else
             {
@@ -673,6 +674,17 @@ namespace Newtonsoft.Json
                 _writer.Write(value.ToString(DateFormatString, Culture));
                 _writer.Write(_quoteChar);
             }
+        }
+
+        private int WriteValueToBuffer(DateTimeOffset value)
+        {
+            EnsureWriteBuffer();
+
+            int pos = 0;
+            _writeBuffer[pos++] = _quoteChar;
+            pos = DateTimeUtils.WriteDateTimeString(_writeBuffer, pos, (DateFormatHandling == DateFormatHandling.IsoDateFormat) ? value.DateTime : value.UtcDateTime, value.Offset, DateTimeKind.Local, DateFormatHandling);
+            _writeBuffer[pos++] = _quoteChar;
+            return pos;
         }
 #endif
 
