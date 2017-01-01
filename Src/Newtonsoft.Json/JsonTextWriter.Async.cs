@@ -38,7 +38,22 @@ namespace Newtonsoft.Json
 {
     public partial class JsonTextWriter
     {
-        private bool SafeAsync => GetType() == typeof(JsonTextWriter);
+        // It's not safe to perform the async methods here in a derived class as if the synchronous equivalent
+        // has been overriden then the asychronous method will no longer be doing the same operation.
+        private bool? _safeAsync;
+
+        private bool SafeAsync
+        {
+            get
+            {
+                if (!_safeAsync.HasValue)
+                {
+                    _safeAsync = GetType() == typeof(JsonTextWriter);
+                }
+
+                return _safeAsync.GetValueOrDefault();
+            }
+        }
 
         /// <summary>
         /// Asynchronously flushes whatever is in the buffer to the destination and also flushes the destination.

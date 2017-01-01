@@ -40,7 +40,22 @@ namespace Newtonsoft.Json
 {
     public partial class JsonTextReader
     {
-        private bool SafeAsync => GetType() == typeof(JsonTextReader);
+        // It's not safe to perform the async methods here in a derived class as if the synchronous equivalent
+        // has been overriden then the asychronous method will no longer be doing the same operation.
+        private bool? _safeAsync;
+
+        private bool SafeAsync
+        {
+            get
+            {
+                if (!_safeAsync.HasValue)
+                {
+                    _safeAsync = GetType() == typeof(JsonTextReader);
+                }
+
+                return _safeAsync.GetValueOrDefault();
+            }
+        }
 
         /// <summary>
         /// Asynchronously reads the next JSON token from the source.
