@@ -1015,65 +1015,32 @@ namespace Newtonsoft.Json
         {
             int charPos = _charPos;
 
-            for (;;)
+            while (true)
             {
-                switch (_chars[charPos])
+                char currentChar = _chars[charPos];
+                if (currentChar == '\0')
                 {
-                    case '\0':
-                        _charPos = charPos;
+                    _charPos = charPos;
 
-                        if (_charsUsed == charPos)
-                        {
-                            if (await ReadDataAsync(true, cancellationToken).ConfigureAwait(false) == 0)
-                            {
-                                return;
-                            }
-                        }
-                        else
+                    if (_charsUsed == charPos)
+                    {
+                        if (await ReadDataAsync(true, cancellationToken).ConfigureAwait(false) == 0)
                         {
                             return;
                         }
-
-                        break;
-                    case '-':
-                    case '+':
-                    case 'a':
-                    case 'A':
-                    case 'b':
-                    case 'B':
-                    case 'c':
-                    case 'C':
-                    case 'd':
-                    case 'D':
-                    case 'e':
-                    case 'E':
-                    case 'f':
-                    case 'F':
-                    case 'x':
-                    case 'X':
-                    case '.':
-                    case '0':
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                    case '5':
-                    case '6':
-                    case '7':
-                    case '8':
-                    case '9':
-                        charPos++;
-                        break;
-                    default:
-                        _charPos = charPos;
-
-                        char currentChar = _chars[_charPos];
-                        if (char.IsWhiteSpace(currentChar) || currentChar == ',' || currentChar == '}' || currentChar == ']' || currentChar == ')' || currentChar == '/')
-                        {
-                            return;
-                        }
-
-                        throw JsonReaderException.Create(this, "Unexpected character encountered while parsing number: {0}.".FormatWith(CultureInfo.InvariantCulture, currentChar));
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (ReadNumberCharIntoBuffer(currentChar, charPos))
+                {
+                    return;
+                }
+                else
+                {
+                    charPos++;
                 }
             }
         }
