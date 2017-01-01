@@ -727,7 +727,7 @@ namespace Newtonsoft.Json
             await InternalWriteValueAsync(JsonToken.String, cancellationToken).ConfigureAwait(false);
 
             await _writer.WriteAsync(_quoteChar, cancellationToken).ConfigureAwait(false);
-#if !(DOTNET || PORTABLE40 || PORTABLE)
+#if !(DOTNET || PORTABLE)
             await _writer.WriteAsync(value.ToString("D", CultureInfo.InvariantCulture), cancellationToken).ConfigureAwait(false);
 #else
             await _writer.WriteAsync(value.ToString("D"), cancellationToken).ConfigureAwait(false);
@@ -816,7 +816,7 @@ namespace Newtonsoft.Json
         }
 
 
-#if !(PORTABLE || PORTABLE40) || NETSTANDARD1_1
+#if !PORTABLE || NETSTANDARD1_1
         internal async Task WriteValueAsync(BigInteger value, CancellationToken cancellationToken)
         {
             await InternalWriteValueAsync(JsonToken.Integer, cancellationToken).ConfigureAwait(false);
@@ -840,7 +840,7 @@ namespace Newtonsoft.Json
                 {
                     return WriteNullAsync(cancellationToken);
                 }
-#if !(PORTABLE || PORTABLE40) || NETSTANDARD1_1
+#if !PORTABLE || NETSTANDARD1_1
                 if (value is BigInteger)
                 {
                     return WriteValueAsync((BigInteger)value, cancellationToken);

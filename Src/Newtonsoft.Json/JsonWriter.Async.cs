@@ -574,7 +574,7 @@ namespace Newtonsoft.Json
                 case JsonToken.Integer:
                     ValidationUtils.ArgumentNotNull(value, nameof(value));
                     return
-#if !(PORTABLE || PORTABLE40) || NETSTANDARD1_1
+#if !PORTABLE || NETSTANDARD1_1
                         value is BigInteger ? WriteValueAsync((BigInteger)value, cancellationToken) :
 #endif
                         WriteValueAsync(Convert.ToInt64(value, CultureInfo.InvariantCulture), cancellationToken);
@@ -1591,7 +1591,7 @@ namespace Newtonsoft.Json
                     return writer.WriteValueAsync((TimeSpan)value, cancellationToken);
                 case PrimitiveTypeCode.TimeSpanNullable:
                     return writer.WriteValueAsync(value == null ? (TimeSpan?)null : (TimeSpan)value, cancellationToken);
-#if !(PORTABLE || PORTABLE40) || NETSTANDARD1_1
+#if !PORTABLE || NETSTANDARD1_1
                 case PrimitiveTypeCode.BigInteger:
 
                     // this will call to WriteValueAsync(object)
