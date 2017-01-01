@@ -131,6 +131,11 @@ namespace Newtonsoft.Json
 
             ShiftBufferIfNeeded();
             ReadStringIntoBuffer(quote);
+            ParseReadString(quote, readType);
+        }
+
+        private void ParseReadString(char quote, ReadType readType)
+        { 
             SetPostValueState(true);
 
             switch (readType)
