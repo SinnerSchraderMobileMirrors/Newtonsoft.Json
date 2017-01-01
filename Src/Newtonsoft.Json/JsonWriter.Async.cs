@@ -220,7 +220,7 @@ namespace Newtonsoft.Json
         internal Task WriteEndInternalAsync(CancellationToken cancellationToken)
         {
             JsonContainerType type = Peek();
-            switch (Peek())
+            switch (type)
             {
                 case JsonContainerType.Object:
                     return WriteEndObjectAsync(cancellationToken);
