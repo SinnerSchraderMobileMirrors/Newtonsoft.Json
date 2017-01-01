@@ -1830,6 +1830,11 @@ namespace Newtonsoft.Json
 
             ReadNumberIntoBuffer();
 
+            ParseReadNumber(readType, firstChar, initialPosition);
+        }
+
+        private void ParseReadNumber(ReadType readType, char firstChar, int initialPosition)
+        { 
             // set state to PostValue now so that if there is an error parsing the number then the reader can continue
             SetPostValueState(true);
 
