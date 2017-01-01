@@ -1525,38 +1525,45 @@ namespace Newtonsoft.Json
             // parse unquoted property name until whitespace or colon
             while (true)
             {
-                switch (_chars[_charPos])
+                char currentChar = _chars[_charPos];
+                if (currentChar == '\0')
                 {
-                    case '\0':
-                        if (_charsUsed == _charPos)
+                    if (_charsUsed == _charPos)
+                    {
+                        if (ReadData(true) == 0)
                         {
-                            if (ReadData(true) == 0)
-                            {
-                                throw JsonReaderException.Create(this, "Unexpected end while parsing unquoted property name.");
-                            }
-
-                            break;
+                            throw JsonReaderException.Create(this, "Unexpected end while parsing unquoted property name.");
                         }
 
-                        _stringReference = new StringReference(_chars, initialPosition, _charPos - initialPosition);
-                        return;
-                    default:
-                        char currentChar = _chars[_charPos];
+                        continue;
+                    }
 
-                        if (ValidIdentifierChar(currentChar))
-                        {
-                            _charPos++;
-                            break;
-                        }
-                        else if (char.IsWhiteSpace(currentChar) || currentChar == ':')
-                        {
-                            _stringReference = new StringReference(_chars, initialPosition, _charPos - initialPosition);
-                            return;
-                        }
+                    _stringReference = new StringReference(_chars, initialPosition, _charPos - initialPosition);
+                    return;
+                }
 
-                        throw JsonReaderException.Create(this, "Invalid JavaScript property identifier character: {0}.".FormatWith(CultureInfo.InvariantCulture, currentChar));
+                if (ReadUnquotedPropertyReportIfDone(currentChar, initialPosition))
+                {
+                    return;
                 }
             }
+        }
+
+        private bool ReadUnquotedPropertyReportIfDone(char currentChar, int initialPosition)
+        {
+            if (ValidIdentifierChar(currentChar))
+            {
+                _charPos++;
+                return false;
+            }
+
+            if (char.IsWhiteSpace(currentChar) || currentChar == ':')
+            {
+                _stringReference = new StringReference(_chars, initialPosition, _charPos - initialPosition);
+                return true;
+            }
+
+            throw JsonReaderException.Create(this, "Invalid JavaScript property identifier character: {0}.".FormatWith(CultureInfo.InvariantCulture, currentChar));
         }
 
         private bool ParseValue()
