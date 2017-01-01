@@ -472,20 +472,8 @@ namespace Newtonsoft.Json
 
         private async Task<char> ParseUnicodeAsync(CancellationToken cancellationToken)
         {
-            char writeChar;
-            if (await EnsureCharsAsync(4, true, cancellationToken).ConfigureAwait(false))
-            {
-                char hexChar = Convert.ToChar(ConvertUtils.HexTextToInt(_chars, _charPos, _charPos + 4));
-                writeChar = hexChar;
+            return ConvertUnicode(await EnsureCharsAsync(4, true, cancellationToken).ConfigureAwait(false));
 
-                _charPos += 4;
-            }
-            else
-            {
-                throw JsonReaderException.Create(this, "Unexpected end while parsing unicode character.");
-            }
-
-            return writeChar;
         }
 
         private Task<bool> EnsureCharsAsync(int relativePosition, bool append, CancellationToken cancellationToken)

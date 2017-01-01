@@ -1228,21 +1228,21 @@ namespace Newtonsoft.Json
             _stringBuffer.Append(_arrayPool, writeChar);
         }
 
-        private char ParseUnicode()
+        private char ConvertUnicode(bool enoughChars)
         {
-            char writeChar;
-            if (EnsureChars(4, true))
+            if (enoughChars)
             {
                 char hexChar = Convert.ToChar(ConvertUtils.HexTextToInt(_chars, _charPos, _charPos + 4));
-                writeChar = hexChar;
-
                 _charPos += 4;
+                return hexChar;
             }
-            else
-            {
-                throw JsonReaderException.Create(this, "Unexpected end while parsing unicode character.");
-            }
-            return writeChar;
+
+            throw JsonReaderException.Create(this, "Unexpected end while parsing unicode character.");
+        }
+
+        private char ParseUnicode()
+        {
+            return ConvertUnicode(EnsureChars(4, true));
         }
 
         private void ReadNumberIntoBuffer()
