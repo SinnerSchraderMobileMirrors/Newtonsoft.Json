@@ -2206,7 +2206,12 @@ namespace Newtonsoft.Json
 
         private bool MatchValue(string value)
         {
-            if (!EnsureChars(value.Length - 1, true))
+            return MatchValue(EnsureChars(value.Length - 1, true), value);
+        }
+
+        private bool MatchValue(bool enoughChars, string value)
+        {
+            if (!enoughChars)
             {
                 _charPos = _charsUsed;
                 throw CreateUnexpectedEndException();

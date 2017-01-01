@@ -798,24 +798,7 @@ namespace Newtonsoft.Json
 
         private async Task<bool> MatchValueAsync(string value, CancellationToken cancellationToken)
         {
-            if (!await EnsureCharsAsync(value.Length - 1, true, cancellationToken).ConfigureAwait(false))
-            {
-                _charPos = _charsUsed;
-                throw CreateUnexpectedEndException();
-            }
-
-            for (int i = 0; i < value.Length; i++)
-            {
-                if (_chars[_charPos + i] != value[i])
-                {
-                    _charPos += i;
-                    return false;
-                }
-            }
-
-            _charPos += value.Length;
-
-            return true;
+            return MatchValue(await EnsureCharsAsync(value.Length - 1, true, cancellationToken).ConfigureAwait(false), value);
         }
 
         private async Task<bool> MatchValueWithTrailingSeparatorAsync(string value, CancellationToken cancellationToken)
