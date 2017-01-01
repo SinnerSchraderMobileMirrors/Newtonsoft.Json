@@ -26,6 +26,8 @@
 #if !(NET20 || NET35 || NET40 || PORTABLE40)
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Utilities;
@@ -103,6 +105,27 @@ namespace Newtonsoft.Json
         public virtual Task<byte[]> ReadAsBytesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return cancellationToken.CancelIfRequestedAsync<byte[]>() ?? Task.FromResult(ReadAsBytes());
+        }
+
+
+        internal async Task<byte[]> ReadArrayIntoByteArrayAsync(CancellationToken cancellationToken)
+        {
+            List<byte> buffer = new List<byte>();
+
+            for (;;)
+            {
+                if (!await ReadAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    SetToken(JsonToken.None);
+                }
+
+                if (ReadArrayElementIntoByteArrayReportDone(buffer))
+                {
+                    byte[] d = buffer.ToArray();
+                    SetToken(JsonToken.Bytes, d, false);
+                    return d;
+                }
+            }
         }
 
         /// <summary>

@@ -26,7 +26,6 @@
 #if !(NET20 || NET35 || NET40 || PORTABLE40)
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 #if !(NET20 || NET35 || PORTABLE40 || PORTABLE) || NETSTANDARD1_1
@@ -1613,7 +1612,7 @@ namespace Newtonsoft.Json
                                 SetToken(JsonToken.StartArray);
                                 return await ReadArrayIntoByteArrayAsync(cancellationToken).ConfigureAwait(false);
                             case 'n':
-                                await HandleNullAsync(cancellationToken);
+                                await HandleNullAsync(cancellationToken).ConfigureAwait(false);
                                 return null;
                             case '/':
                                 await ParseCommentAsync(false, cancellationToken).ConfigureAwait(false);
@@ -1679,36 +1678,6 @@ namespace Newtonsoft.Json
             }
 
             throw JsonReaderException.Create(this, "Error reading bytes. Unexpected token: {0}.".FormatWith(CultureInfo.InvariantCulture, JsonToken.StartObject));
-        }
-
-        private async Task<byte[]> ReadArrayIntoByteArrayAsync(CancellationToken cancellationToken)
-        {
-            List<byte> buffer = new List<byte>();
-
-            for (;;)
-            {
-                if (!await ReadAsync(cancellationToken).ConfigureAwait(false))
-                {
-                    SetToken(JsonToken.None);
-                }
-
-                switch (TokenType)
-                {
-                    case JsonToken.None:
-                        throw JsonReaderException.Create(this, "Unexpected end when reading bytes.");
-                    case JsonToken.Integer:
-                        buffer.Add(Convert.ToByte(Value, CultureInfo.InvariantCulture));
-                        break;
-                    case JsonToken.EndArray:
-                        byte[] d = buffer.ToArray();
-                        SetToken(JsonToken.Bytes, d, false);
-                        return d;
-                    case JsonToken.Comment:
-                        continue;
-                    default:
-                        throw JsonReaderException.Create(this, "Unexpected token when reading bytes: {0}.".FormatWith(CultureInfo.InvariantCulture, TokenType));
-                }
-            }
         }
 
         /// <summary>
