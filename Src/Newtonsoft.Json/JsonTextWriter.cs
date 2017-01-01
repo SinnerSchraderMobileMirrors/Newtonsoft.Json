@@ -795,19 +795,25 @@ namespace Newtonsoft.Json
             }
             else
             {
-                EnsureWriteBuffer();
-
-                int totalLength = MathUtils.IntLength(uvalue);
-                int length = 0;
-
-                do
-                {
-                    _writeBuffer[totalLength - ++length] = (char)('0' + (uvalue % 10));
-                    uvalue /= 10;
-                } while (uvalue != 0);
-
+                int length = WriteNumberToBuffer(uvalue);
                 _writer.Write(_writeBuffer, 0, length);
             }
+        }
+
+        private int WriteNumberToBuffer(ulong value)
+        {
+            EnsureWriteBuffer();
+
+            int totalLength = MathUtils.IntLength(value);
+            int length = 0;
+
+            do
+            {
+                _writeBuffer[totalLength - ++length] = (char)('0' + value % 10);
+                value /= 10;
+            } while (value != 0);
+
+            return length;
         }
     }
 }

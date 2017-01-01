@@ -254,22 +254,7 @@ namespace Newtonsoft.Json
                 return _writer.WriteAsync((char)('0' + uvalue), cancellationToken);
             }
 
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return cancellationToken.FromCanceled();
-            }
-
-            EnsureWriteBuffer();
-
-            int totalLength = MathUtils.IntLength(uvalue);
-            int length = 0;
-
-            do
-            {
-                _writeBuffer[totalLength - ++length] = (char)('0' + uvalue % 10);
-                uvalue /= 10;
-            } while (uvalue != 0);
-
+            int length = WriteNumberToBuffer(uvalue);
             return _writer.WriteAsync(_writeBuffer, 0, length, cancellationToken);
         }
 
