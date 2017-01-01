@@ -406,7 +406,6 @@ namespace Newtonsoft.Json
 
         internal async Task InternalWriteStartAsync(JsonToken token, JsonContainerType container, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             UpdateScopeWithFinishedValue();
             await AutoCompleteAsync(token, cancellationToken).ConfigureAwait(false);
             Push(container);
@@ -638,21 +637,7 @@ namespace Newtonsoft.Json
 
         internal virtual async Task WriteTokenAsync(JsonReader reader, bool writeChildren, bool writeDateConstructorAsDate, bool writeComments, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            int initialDepth;
-
-            if (reader.TokenType == JsonToken.None)
-            {
-                initialDepth = -1;
-            }
-            else if (!JsonTokenUtils.IsStartToken(reader.TokenType))
-            {
-                initialDepth = reader.Depth + 1;
-            }
-            else
-            {
-                initialDepth = reader.Depth;
-            }
+            int initialDepth = CalculateWriteTokenDepth(reader);
 
             do
             {
@@ -669,9 +654,10 @@ namespace Newtonsoft.Json
                     }
                 }
             } while (
-
                 // stop if we have reached the end of the token being read
-                initialDepth - 1 < reader.Depth - (JsonTokenUtils.IsEndToken(reader.TokenType) ? 1 : 0) && writeChildren && await reader.ReadAsync(cancellationToken).ConfigureAwait(false));
+                initialDepth - 1 < reader.Depth - (JsonTokenUtils.IsEndToken(reader.TokenType) ? 1 : 0)
+                && writeChildren
+                && await reader.ReadAsync(cancellationToken).ConfigureAwait(false));
         }
 
         private async Task WriteConstructorDateAsync(JsonReader reader, CancellationToken cancellationToken)
