@@ -40,8 +40,6 @@ namespace Newtonsoft.Json
     {
         internal async Task AutoCompleteAsync(JsonToken tokenBeingWritten, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             // gets new state based on the current state and what is being written
             State newState = StateArray[(int)tokenBeingWritten][(int)_currentState];
 
@@ -237,8 +235,6 @@ namespace Newtonsoft.Json
 
         internal async Task InternalWriteEndAsync(JsonContainerType type, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             int levelsToComplete = CalculateLevelsToComplete(type);
 
             for (int i = 0; i < levelsToComplete; i++)

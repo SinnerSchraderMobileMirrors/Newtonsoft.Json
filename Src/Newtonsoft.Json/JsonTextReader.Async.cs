@@ -1138,7 +1138,6 @@ namespace Newtonsoft.Json
 
         private async Task<object> ReadStringValueAsync(ReadType readType, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             EnsureBuffer();
 
             switch (_currentState)
@@ -1293,7 +1292,6 @@ namespace Newtonsoft.Json
 
         private async Task<object> ReadNumberValueAsync(ReadType readType, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             EnsureBuffer();
 
             switch (_currentState)
@@ -1425,7 +1423,6 @@ namespace Newtonsoft.Json
 
         internal async Task<bool?> DoReadAsBooleanAsync(CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             EnsureBuffer();
 
             switch (_currentState)
@@ -1558,7 +1555,6 @@ namespace Newtonsoft.Json
 
         internal async Task<byte[]> DoReadAsBytesAsync(CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             EnsureBuffer();
             bool isWrapped = false;
 

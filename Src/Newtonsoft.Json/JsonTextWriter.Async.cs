@@ -277,7 +277,6 @@ namespace Newtonsoft.Json
 
         private async Task WriteEscapedStringAsync(string value, bool quote, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             EnsureWriteBuffer();
             _writeBuffer = await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(_writer, value, _quoteChar, quote, _charEscapeFlags, StringEscapeHandling, _arrayPool, _writeBuffer, cancellationToken).ConfigureAwait(false);
         }
