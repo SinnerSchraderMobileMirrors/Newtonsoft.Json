@@ -264,9 +264,10 @@ namespace Newtonsoft.Json
             if (value < 0)
             {
                 await _writer.WriteAsync('-', cancellationToken).ConfigureAwait(false);
+                value = -value;
             }
 
-            await WriteDigitsAsync(value < 0 ? (ulong)-value : (ulong)value, cancellationToken).ConfigureAwait(false);
+            await WriteDigitsAsync((ulong)value, cancellationToken).ConfigureAwait(false);
         }
 
         internal async Task WriteIntegerValueAsync(ulong uvalue, CancellationToken cancellationToken)
