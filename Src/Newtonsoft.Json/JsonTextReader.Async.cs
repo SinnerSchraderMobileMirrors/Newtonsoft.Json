@@ -350,7 +350,7 @@ namespace Newtonsoft.Json
                                         anotherHighSurrogate = false;
 
                                         // potential start of a surrogate pair
-                                        if (await EnsureCharsAsync(2, true, cancellationToken) && _chars[_charPos] == '\\' && _chars[_charPos + 1] == 'u')
+                                        if (await EnsureCharsAsync(2, true, cancellationToken).ConfigureAwait(false) && _chars[_charPos] == '\\' && _chars[_charPos + 1] == 'u')
                                         {
                                             char highSurrogate = writeChar;
 
