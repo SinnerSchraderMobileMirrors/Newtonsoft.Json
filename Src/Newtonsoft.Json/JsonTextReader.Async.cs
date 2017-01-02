@@ -28,7 +28,7 @@
 using System;
 using System.Globalization;
 using System.Threading;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE) || NETSTANDARD1_1
+#if !PORTABLE || NETSTANDARD1_1
 using System.Numerics;
 #endif
 using System.Threading.Tasks;
@@ -1139,29 +1139,7 @@ namespace Newtonsoft.Json
                             case '"':
                             case '\'':
                                 await ParseStringAsync(currentChar, readType, cancellationToken).ConfigureAwait(false);
-                                switch (readType)
-                                {
-                                    case ReadType.ReadAsBytes:
-                                        return Value;
-                                    case ReadType.ReadAsString:
-                                        return Value;
-                                    case ReadType.ReadAsDateTime:
-                                        if (Value is DateTime)
-                                        {
-                                            return (DateTime)Value;
-                                        }
-
-                                        return ReadDateTimeString((string)Value);
-                                    case ReadType.ReadAsDateTimeOffset:
-                                        if (Value is DateTimeOffset)
-                                        {
-                                            return (DateTimeOffset)Value;
-                                        }
-
-                                        return ReadDateTimeOffsetString((string)Value);
-                                    default:
-                                        throw new ArgumentOutOfRangeException(nameof(readType));
-                                }
+                                return FinishReadQuotedStringValue(readType);
                             case '-':
                                 if (await EnsureCharsAsync(1, true, cancellationToken).ConfigureAwait(false) && _chars[_charPos + 1] == 'I')
                                 {

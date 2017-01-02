@@ -581,29 +581,7 @@ namespace Newtonsoft.Json
                             case '"':
                             case '\'':
                                 ParseString(currentChar, readType);
-                                switch (readType)
-                                {
-                                    case ReadType.ReadAsBytes:
-                                        return Value;
-                                    case ReadType.ReadAsString:
-                                        return Value;
-                                    case ReadType.ReadAsDateTime:
-                                        if (Value is DateTime)
-                                        {
-                                            return (DateTime)Value;
-                                        }
-                                        return ReadDateTimeString((string)Value);
-#if !NET20
-                                    case ReadType.ReadAsDateTimeOffset:
-                                        if (Value is DateTimeOffset)
-                                        {
-                                            return (DateTimeOffset)Value;
-                                        }
-                                        return ReadDateTimeOffsetString((string)Value);
-#endif
-                                    default:
-                                        throw new ArgumentOutOfRangeException(nameof(readType));
-                                }
+                                return FinishReadQuotedStringValue(readType);
                             case '-':
                                 if (EnsureChars(1, true) && _chars[_charPos + 1] == 'I')
                                 {
@@ -695,6 +673,34 @@ namespace Newtonsoft.Json
                     return null;
                 default:
                     throw JsonReaderException.Create(this, "Unexpected state: {0}.".FormatWith(CultureInfo.InvariantCulture, CurrentState));
+            }
+        }
+
+        private object FinishReadQuotedStringValue(ReadType readType)
+        {
+            switch (readType)
+            {
+                case ReadType.ReadAsBytes:
+                case ReadType.ReadAsString:
+                    return Value;
+                case ReadType.ReadAsDateTime:
+                    if (Value is DateTime)
+                    {
+                        return (DateTime)Value;
+                    }
+
+                    return ReadDateTimeString((string)Value);
+#if !NET20
+                case ReadType.ReadAsDateTimeOffset:
+                    if (Value is DateTimeOffset)
+                    {
+                        return (DateTimeOffset)Value;
+                    }
+
+                    return ReadDateTimeOffsetString((string)Value);
+#endif
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(readType));
             }
         }
 
