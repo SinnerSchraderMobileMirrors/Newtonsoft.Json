@@ -1211,11 +1211,6 @@ namespace Newtonsoft.Json
             }
         }
 
-        private void ReadEscapedCharIntoBuffer(int charPos, int initialPosition, int lastWritePosition)
-        {
-            
-        }
-
         private void FinishReadStringIntoBuffer(int charPos, int initialPosition, int lastWritePosition)
         {
             if (initialPosition == lastWritePosition)
