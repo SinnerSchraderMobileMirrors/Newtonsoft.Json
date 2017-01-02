@@ -1256,17 +1256,7 @@ namespace Newtonsoft.Json
                             case '"':
                             case '\'':
                                 await ParseStringAsync(currentChar, readType, cancellationToken).ConfigureAwait(false);
-                                switch (readType)
-                                {
-                                    case ReadType.ReadAsInt32:
-                                        return ReadInt32String(_stringReference.ToString());
-                                    case ReadType.ReadAsDecimal:
-                                        return ReadDecimalString(_stringReference.ToString());
-                                    case ReadType.ReadAsDouble:
-                                        return ReadDoubleString(_stringReference.ToString());
-                                    default:
-                                        throw new ArgumentOutOfRangeException(nameof(readType));
-                                }
+                                return FinishReadQuotedNumber(readType);
                             case 'n':
                                 await HandleNullAsync(cancellationToken).ConfigureAwait(false);
                                 return null;

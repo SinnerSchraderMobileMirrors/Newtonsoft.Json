@@ -874,17 +874,7 @@ namespace Newtonsoft.Json
                             case '"':
                             case '\'':
                                 ParseString(currentChar, readType);
-                                switch (readType)
-                                {
-                                    case ReadType.ReadAsInt32:
-                                        return ReadInt32String(_stringReference.ToString());
-                                    case ReadType.ReadAsDecimal:
-                                        return ReadDecimalString(_stringReference.ToString());
-                                    case ReadType.ReadAsDouble:
-                                        return ReadDoubleString(_stringReference.ToString());
-                                    default:
-                                        throw new ArgumentOutOfRangeException(nameof(readType));
-                                }
+                                return FinishReadQuotedNumber(readType);
                             case 'n':
                                 HandleNull();
                                 return null;
@@ -957,6 +947,21 @@ namespace Newtonsoft.Json
                     return null;
                 default:
                     throw JsonReaderException.Create(this, "Unexpected state: {0}.".FormatWith(CultureInfo.InvariantCulture, CurrentState));
+            }
+        }
+
+        private object FinishReadQuotedNumber(ReadType readType)
+        {
+            switch (readType)
+            {
+                case ReadType.ReadAsInt32:
+                    return ReadInt32String(_stringReference.ToString());
+                case ReadType.ReadAsDecimal:
+                    return ReadDecimalString(_stringReference.ToString());
+                case ReadType.ReadAsDouble:
+                    return ReadDoubleString(_stringReference.ToString());
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(readType));
             }
         }
 
