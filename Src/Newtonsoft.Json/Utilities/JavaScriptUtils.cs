@@ -281,14 +281,7 @@ namespace Newtonsoft.Json.Utilities
                 }
                 else
                 {
-                    int length = s.Length - lastWritePosition;
-
-                    if (writeBuffer == null || writeBuffer.Length < length)
-                    {
-                        writeBuffer = BufferUtils.EnsureBufferSize(bufferPool, length, writeBuffer);
-                    }
-
-                    s.CopyTo(lastWritePosition, writeBuffer, 0, length);
+                    int length = WriteEscapedStringThroughBuffer(s, lastWritePosition, bufferPool, ref writeBuffer);
 
                     // write remaining text
                     writer.Write(writeBuffer, 0, length);
@@ -300,6 +293,20 @@ namespace Newtonsoft.Json.Utilities
             {
                 writer.Write(delimiter);
             }
+        }
+
+        private static int WriteEscapedStringThroughBuffer(string s, int lastWritePosition, IArrayPool<char> bufferPool, ref char[] writeBuffer)
+        {
+            int length = s.Length - lastWritePosition;
+
+            if (writeBuffer == null || writeBuffer.Length < length)
+            {
+                writeBuffer = BufferUtils.EnsureBufferSize(bufferPool, length, writeBuffer);
+            }
+
+            s.CopyTo(lastWritePosition, writeBuffer, 0, length);
+
+            return length;
         }
 
         public static string ToEscapedJavaScriptString(string value, char delimiter, bool appendDelimiters, StringEscapeHandling stringEscapeHandling)
@@ -458,14 +465,7 @@ namespace Newtonsoft.Json.Utilities
                 }
                 else
                 {
-                    int length = s.Length - lastWritePosition;
-
-                    if (writeBuffer == null || writeBuffer.Length < length)
-                    {
-                        writeBuffer = BufferUtils.EnsureBufferSize(bufferPool, length, writeBuffer);
-                    }
-
-                    s.CopyTo(lastWritePosition, writeBuffer, 0, length);
+                    int length = WriteEscapedStringThroughBuffer(s, lastWritePosition, bufferPool, ref writeBuffer);
 
                     // write remaining text
                     await writer.WriteAsync(writeBuffer, 0, length, cancellationToken).ConfigureAwait(false);
