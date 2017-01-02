@@ -186,18 +186,15 @@ namespace Newtonsoft.Json
                     case 'n':
                         if (await EnsureCharsAsync(1, true, cancellationToken).ConfigureAwait(false))
                         {
-                            char next = _chars[_charPos + 1];
-
-                            if (next == 'u')
+                            switch (_chars[_charPos + 1])
                             {
+                                case 'u':
                                 await ParseNullAsync(cancellationToken).ConfigureAwait(false);
-                            }
-                            else if (next == 'e')
-                            {
+                                    break;
+                                case 'e':
                                 await ParseConstructorAsync(cancellationToken).ConfigureAwait(false);
-                            }
-                            else
-                            {
+                                    break;
+                                default:
                                 throw CreateUnexpectedCharacterException(_chars[_charPos]);
                             }
                         }
@@ -494,13 +491,11 @@ namespace Newtonsoft.Json
         {
             int charsRequired = _charPos + relativePosition - _charsUsed + 1;
 
-            int totalCharsRead = 0;
-
             // it is possible that the TextReader doesn't return all data at once
             // repeat read until the required text is returned or the reader is out of content
             do
             {
-                int charsRead = await ReadDataAsync(append, charsRequired - totalCharsRead, cancellationToken).ConfigureAwait(false);
+                int charsRead = await ReadDataAsync(append, charsRequired, cancellationToken).ConfigureAwait(false);
 
                 // no more content
                 if (charsRead == 0)
@@ -508,8 +503,8 @@ namespace Newtonsoft.Json
                     return false;
                 }
 
-                totalCharsRead += charsRead;
-            } while (totalCharsRead < charsRequired);
+                charsRequired -= charsRead;
+            } while (charsRequired > 0);
 
             return true;
         }
@@ -1097,9 +1092,7 @@ namespace Newtonsoft.Json
         {
             if (await EnsureCharsAsync(1, true, cancellationToken).ConfigureAwait(false))
             {
-                char next = _chars[_charPos + 1];
-
-                if (next == 'u')
+                if (_chars[_charPos + 1] == 'u')
                 {
                     await ParseNullAsync(cancellationToken).ConfigureAwait(false);
                     return;
@@ -1179,7 +1172,6 @@ namespace Newtonsoft.Json
                                         }
 
                                         return ReadDateTimeString((string)Value);
-#if !NET20
                                     case ReadType.ReadAsDateTimeOffset:
                                         if (Value is DateTimeOffset)
                                         {
@@ -1187,7 +1179,6 @@ namespace Newtonsoft.Json
                                         }
 
                                         return ReadDateTimeOffsetString((string)Value);
-#endif
                                     default:
                                         throw new ArgumentOutOfRangeException(nameof(readType));
                                 }
@@ -1469,7 +1460,7 @@ namespace Newtonsoft.Json
                             case '9':
                                 await ParseNumberAsync(ReadType.Read, cancellationToken).ConfigureAwait(false);
                                 bool b;
-#if !(PORTABLE40 || PORTABLE) || NETSTANDARD1_1
+#if !PORTABLE || NETSTANDARD1_1
                                 if (Value is BigInteger)
                                 {
                                     b = (BigInteger)Value != 0;
@@ -1484,9 +1475,7 @@ namespace Newtonsoft.Json
                             case 't':
                             case 'f':
                                 bool isTrue = currentChar == 't';
-                                string expected = isTrue ? JsonConvert.True : JsonConvert.False;
-
-                                if (!await MatchValueWithTrailingSeparatorAsync(expected, cancellationToken).ConfigureAwait(false))
+                                if (!await MatchValueWithTrailingSeparatorAsync(isTrue ? JsonConvert.True : JsonConvert.False, cancellationToken).ConfigureAwait(false))
                                 {
                                     throw CreateUnexpectedCharacterException(_chars[_charPos]);
                                 }

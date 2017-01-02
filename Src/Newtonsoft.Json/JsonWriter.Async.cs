@@ -237,7 +237,7 @@ namespace Newtonsoft.Json
         {
             int levelsToComplete = CalculateLevelsToComplete(type);
 
-            for (int i = 0; i < levelsToComplete; i++)
+            while(levelsToComplete-- > 0)
             {
                 JsonToken token = GetCloseTokenForType(Pop());
 
@@ -667,8 +667,7 @@ namespace Newtonsoft.Json
                 throw JsonWriterException.Create(this, "Unexpected token when reading date constructor. Expected Integer, got " + reader.TokenType, null);
             }
 
-            long ticks = (long)reader.Value;
-            DateTime date = DateTimeUtils.ConvertJavaScriptTicksToDateTime(ticks);
+            DateTime date = DateTimeUtils.ConvertJavaScriptTicksToDateTime((long)reader.Value);
 
             if (!await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
             {
