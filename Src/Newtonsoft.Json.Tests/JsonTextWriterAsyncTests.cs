@@ -1551,6 +1551,226 @@ null//comment
 }/*comment *//*comment 1 */", sw.ToString());
         }
 
+        [Test]
+        public void AsyncMethodsAlreadyCancelled()
+        {
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            source.Cancel();
+
+            var writer = new JsonTextWriter(new StreamWriter(Stream.Null));
+
+            Assert.IsTrue(writer.CloseAsync(token).IsCanceled);
+            Assert.IsTrue(writer.FlushAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteCommentAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndArrayAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndConstructorAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndObjectAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteNullAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WritePropertyNameAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WritePropertyNameAsync("test", false, token).IsCanceled);
+            Assert.IsTrue(writer.WriteRawAsync("{}", token).IsCanceled);
+            Assert.IsTrue(writer.WriteRawValueAsync("{}", token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartArrayAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartConstructorAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartObjectAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteTokenAsync(JsonToken.Comment, token).IsCanceled);
+            Assert.IsTrue(writer.WriteTokenAsync(JsonToken.Boolean, true, token).IsCanceled);
+            JsonTextReader reader = new JsonTextReader(new StringReader("[1,2,3,4,5]"));
+            Assert.IsTrue(writer.WriteTokenAsync(reader, token).IsCanceled);
+            Assert.IsTrue(writer.WriteUndefinedAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(bool), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(bool?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte[]), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(char), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(char?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTime), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTime?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTimeOffset), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTimeOffset?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(decimal), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(decimal?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(double), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(double?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(float), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(float?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Guid), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Guid?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(int), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(int?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(long), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(long?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(object), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(sbyte), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(sbyte?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(short), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(short?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(TimeSpan), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(TimeSpan?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(uint), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(uint?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ulong), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ulong?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Uri), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ushort), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ushort?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteWhitespaceAsync(" ", token).IsCanceled);
+        }
+
+        private class NoOverridesDerivedJsonTextWriter : JsonTextWriter
+        {
+            public NoOverridesDerivedJsonTextWriter(TextWriter textWriter) : base(textWriter)
+            {
+            }
+        }
+
+        private class MinimalOverridesDerivedJsonWriter : JsonWriter
+        {
+            public override void Flush()
+            {
+            }
+        }
+
+        [Test]
+        public void AsyncMethodsAlreadyCancelledOnTextWriterSubclass()
+        {
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            source.Cancel();
+
+            var writer = new NoOverridesDerivedJsonTextWriter(new StreamWriter(Stream.Null));
+
+            Assert.IsTrue(writer.CloseAsync(token).IsCanceled);
+            Assert.IsTrue(writer.FlushAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteCommentAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndArrayAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndConstructorAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndObjectAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteNullAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WritePropertyNameAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WritePropertyNameAsync("test", false, token).IsCanceled);
+            Assert.IsTrue(writer.WriteRawAsync("{}", token).IsCanceled);
+            Assert.IsTrue(writer.WriteRawValueAsync("{}", token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartArrayAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartConstructorAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartObjectAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteTokenAsync(JsonToken.Comment, token).IsCanceled);
+            Assert.IsTrue(writer.WriteTokenAsync(JsonToken.Boolean, true, token).IsCanceled);
+            JsonTextReader reader = new JsonTextReader(new StringReader("[1,2,3,4,5]"));
+            Assert.IsTrue(writer.WriteTokenAsync(reader, token).IsCanceled);
+            Assert.IsTrue(writer.WriteUndefinedAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(bool), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(bool?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte[]), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(char), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(char?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTime), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTime?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTimeOffset), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTimeOffset?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(decimal), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(decimal?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(double), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(double?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(float), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(float?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Guid), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Guid?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(int), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(int?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(long), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(long?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(object), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(sbyte), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(sbyte?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(short), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(short?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(TimeSpan), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(TimeSpan?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(uint), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(uint?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ulong), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ulong?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Uri), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ushort), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ushort?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteWhitespaceAsync(" ", token).IsCanceled);
+        }
+
+        [Test]
+        public void AsyncMethodsAlreadyCancelledOnWriterSubclass()
+        {
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            source.Cancel();
+
+            var writer = new MinimalOverridesDerivedJsonWriter();
+
+            Assert.IsTrue(writer.CloseAsync(token).IsCanceled);
+            Assert.IsTrue(writer.FlushAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteCommentAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndArrayAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndConstructorAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteEndObjectAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteNullAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WritePropertyNameAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WritePropertyNameAsync("test", false, token).IsCanceled);
+            Assert.IsTrue(writer.WriteRawAsync("{}", token).IsCanceled);
+            Assert.IsTrue(writer.WriteRawValueAsync("{}", token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartArrayAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartConstructorAsync("test", token).IsCanceled);
+            Assert.IsTrue(writer.WriteStartObjectAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteTokenAsync(JsonToken.Comment, token).IsCanceled);
+            Assert.IsTrue(writer.WriteTokenAsync(JsonToken.Boolean, true, token).IsCanceled);
+            JsonTextReader reader = new JsonTextReader(new StringReader("[1,2,3,4,5]"));
+            Assert.IsTrue(writer.WriteTokenAsync(reader, token).IsCanceled);
+            Assert.IsTrue(writer.WriteUndefinedAsync(token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(bool), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(bool?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(byte[]), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(char), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(char?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTime), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTime?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTimeOffset), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(DateTimeOffset?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(decimal), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(decimal?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(double), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(double?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(float), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(float?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Guid), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Guid?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(int), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(int?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(long), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(long?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(object), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(sbyte), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(sbyte?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(short), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(short?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(TimeSpan), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(TimeSpan?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(uint), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(uint?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ulong), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ulong?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(Uri), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ushort), token).IsCanceled);
+            Assert.IsTrue(writer.WriteValueAsync(default(ushort?), token).IsCanceled);
+            Assert.IsTrue(writer.WriteWhitespaceAsync(" ", token).IsCanceled);
+        }
     }
 
     public class CustomAsyncJsonTextWriter : CustomJsonTextWriter

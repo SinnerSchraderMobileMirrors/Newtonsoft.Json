@@ -229,12 +229,18 @@ namespace Newtonsoft.Json
                 case JsonContainerType.Constructor:
                     return WriteEndConstructorAsync(cancellationToken);
                 default:
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return cancellationToken.FromCanceled();
+                    }
+
                     throw JsonWriterException.Create(this, "Unexpected type when writing end: " + type, null);
             }
         }
 
         internal async Task InternalWriteEndAsync(JsonContainerType type, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             int levelsToComplete = CalculateLevelsToComplete(type);
 
             while(levelsToComplete-- > 0)

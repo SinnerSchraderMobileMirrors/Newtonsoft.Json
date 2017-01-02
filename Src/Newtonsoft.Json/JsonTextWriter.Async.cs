@@ -132,6 +132,11 @@ namespace Newtonsoft.Json
 
         internal async Task DoCloseAsync(CancellationToken cancellationToken)
         {
+            if (Top == 0) // otherwise will happen in calls to WriteEndAsync
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
             while (Top > 0)
             {
                 await WriteEndAsync(cancellationToken).ConfigureAwait(false);
