@@ -1193,31 +1193,38 @@ namespace Newtonsoft.Json
                     case '\'':
                         if (_chars[charPos - 1] == quote)
                         {
-                            charPos--;
-
-                            if (initialPosition == lastWritePosition)
-                            {
-                                _stringReference = new StringReference(_chars, initialPosition, charPos - initialPosition);
-                            }
-                            else
-                            {
-                                EnsureBufferNotEmpty();
-
-                                if (charPos > lastWritePosition)
-                                {
-                                    _stringBuffer.Append(_arrayPool, _chars, lastWritePosition, charPos - lastWritePosition);
-                                }
-
-                                _stringReference = new StringReference(_stringBuffer.InternalBuffer, 0, _stringBuffer.Position);
-                            }
-
-                            charPos++;
-                            _charPos = charPos;
+                            FinishReadStringIntoBuffer(charPos - 1, initialPosition, lastWritePosition);
                             return;
                         }
                         break;
                 }
             }
+        }
+
+        private void ReadEscapedCharIntoBuffer(int charPos, int initialPosition, int lastWritePosition)
+        {
+            
+        }
+
+        private void FinishReadStringIntoBuffer(int charPos, int initialPosition, int lastWritePosition)
+        {
+            if (initialPosition == lastWritePosition)
+            {
+                _stringReference = new StringReference(_chars, initialPosition, charPos - initialPosition);
+            }
+            else
+            {
+                EnsureBufferNotEmpty();
+
+                if (charPos > lastWritePosition)
+                {
+                    _stringBuffer.Append(_arrayPool, _chars, lastWritePosition, charPos - lastWritePosition);
+                }
+
+                _stringReference = new StringReference(_stringBuffer.InternalBuffer, 0, _stringBuffer.Position);
+            }
+
+            _charPos = charPos + 1;
         }
 
         private void WriteCharToBuffer(char writeChar, int lastWritePosition, int writeToPosition)

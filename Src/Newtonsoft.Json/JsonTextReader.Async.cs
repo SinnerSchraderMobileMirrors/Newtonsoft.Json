@@ -363,7 +363,7 @@ namespace Newtonsoft.Json
                                         anotherHighSurrogate = false;
 
                                         // potential start of a surrogate pair
-                                        if (EnsureChars(2, true) && _chars[_charPos] == '\\' && _chars[_charPos + 1] == 'u')
+                                        if (await EnsureCharsAsync(2, true, cancellationToken) && _chars[_charPos] == '\\' && _chars[_charPos + 1] == 'u')
                                         {
                                             char highSurrogate = writeChar;
 
@@ -426,26 +426,7 @@ namespace Newtonsoft.Json
                     case '\'':
                         if (_chars[charPos - 1] == quote)
                         {
-                            charPos--;
-
-                            if (initialPosition == lastWritePosition)
-                            {
-                                _stringReference = new StringReference(_chars, initialPosition, charPos - initialPosition);
-                            }
-                            else
-                            {
-                                EnsureBufferNotEmpty();
-
-                                if (charPos > lastWritePosition)
-                                {
-                                    _stringBuffer.Append(_arrayPool, _chars, lastWritePosition, charPos - lastWritePosition);
-                                }
-
-                                _stringReference = new StringReference(_stringBuffer.InternalBuffer, 0, _stringBuffer.Position);
-                            }
-
-                            charPos++;
-                            _charPos = charPos;
+                            FinishReadStringIntoBuffer(charPos - 1, initialPosition, lastWritePosition);
                             return;
                         }
 
