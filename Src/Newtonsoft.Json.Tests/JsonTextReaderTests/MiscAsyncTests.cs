@@ -55,12 +55,12 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             JsonTextReader jsonTextReader = new JsonTextReader(new StringReader(json));
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, jsonTextReader.TokenType);
             Assert.AreEqual(1, jsonTextReader.LineNumber);
             Assert.AreEqual(1, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
 
             Assert.AreEqual(JsonToken.EndObject, jsonTextReader.TokenType);
             Assert.AreEqual(1, jsonTextReader.LineNumber);
@@ -70,22 +70,22 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             jsonTextReader = new JsonTextReader(new StringReader(json));
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, jsonTextReader.TokenType);
             Assert.AreEqual(2, jsonTextReader.LineNumber);
             Assert.AreEqual(1, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, jsonTextReader.TokenType);
             Assert.AreEqual(2, jsonTextReader.LineNumber);
             Assert.AreEqual(5, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.String, jsonTextReader.TokenType);
             Assert.AreEqual(2, jsonTextReader.LineNumber);
             Assert.AreEqual(9, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, jsonTextReader.TokenType);
             Assert.AreEqual(2, jsonTextReader.LineNumber);
             Assert.AreEqual(10, jsonTextReader.LinePosition);
@@ -94,32 +94,32 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             jsonTextReader = new JsonTextReader(new StringReader(json));
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, jsonTextReader.TokenType);
             Assert.AreEqual(2, jsonTextReader.LineNumber);
             Assert.AreEqual(1, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, jsonTextReader.TokenType);
             Assert.AreEqual(2, jsonTextReader.LineNumber);
             Assert.AreEqual(5, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.String, jsonTextReader.TokenType);
             Assert.AreEqual(3, jsonTextReader.LineNumber);
             Assert.AreEqual(4, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, jsonTextReader.TokenType);
             Assert.AreEqual(3, jsonTextReader.LineNumber);
             Assert.AreEqual(9, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.Boolean, jsonTextReader.TokenType);
             Assert.AreEqual(3, jsonTextReader.LineNumber);
             Assert.AreEqual(13, jsonTextReader.LinePosition);
 
-            Assert.IsTrue(await jsonTextReader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await jsonTextReader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, jsonTextReader.TokenType);
             Assert.AreEqual(4, jsonTextReader.LineNumber);
             Assert.AreEqual(1, jsonTextReader.LinePosition);
@@ -132,26 +132,26 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             JsonTextReader reader = new JsonTextReader(new StringReader(json));
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("recipe_text", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
 
             Assert.AreEqual("#C16------------------------------\r\n#C12Ingredients #C20\r\n#C16------------------------------\r\n\r\na piece of Leather Armor\r\n( ie #L \"Enhanced Leather Armor Boots\" \"85644\" )\r\n<img src=rdb://13264>\r\n\r\n#L \"Hacker Tool\" \"87814\"\r\n<img src=rdb://99282>\r\n\r\n#L \"Clanalizer\" \"208313\"\r\n<img src=rdb://156479>\r\n\r\n#C16------------------------------\r\n#C12Recipe #C16\r\n#C16------------------------------#C20\r\n\r\nHacker Tool\r\n#C15+#C20\r\na piece of Leather Armor\r\n#C15=#C20\r\n<img src=rdb://13264>\r\na piece of Hacked Leather Armor\r\n( ie : #L \"Hacked Leather Armor Boots\" \"245979\" )\r\n#C16Skills: |  BE  |#C20\r\n\r\n#C14------------------------------#C20\r\n\r\nClanalizer\r\n#C15+#C20\r\na piece of Hacked Leather Armor\r\n#C15=#C20\r\n<img src=rdb://13264>\r\na piece of Apocalypse Leather Armor\r\n( ie : #L \"Apocalypse Leather Armor Boots\" \"245966\" )\r\n#C16Skills: |  ??  |#C20\r\n\r\n#C16------------------------------\r\n#C12Details#C16\r\n#C16------------------------------#C20\r\n\r\n#L \"Apocalypse Leather Armor Boots\" \"245967\"\r\n#L \"Apocalypse Leather Armor Gloves\" \"245969\"\r\n#L \"Apocalypse Leather Armor Helmet\" \"245975\"\r\n#L \"Apocalypse Leather Armor Pants\" \"245971\"\r\n#L \"Apocalypse Leather Armor Sleeves\" \"245973\"\r\n#L \"Apocalypse Leather Body Armor\" \"245965\"\r\n\r\n#C16------------------------------\r\n#C12Comments#C16\r\n#C16------------------------------#C20\r\n\r\nNice froob armor.. but ugleh!\r\n\r\n", reader.Value);
@@ -164,10 +164,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             JsonTextReader reader = new JsonTextReader(new StringReader(json));
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsTrue(await reader.ReadAsync());
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
 
             string s = reader.Value.ToString();
@@ -181,35 +181,35 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
         public async Task SurrogatePairReplacementAsync()
         {
             // existing good surrogate pair
-            Assert.AreEqual("ABC \ud800\udc00 DEF", await ReadStringAsync("ABC \\ud800\\udc00 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ud800\udc00 DEF", await ReadStringAsync("ABC \\ud800\\udc00 DEF"));
 
             // invalid surrogates (two high back-to-back)
-            Assert.AreEqual("ABC \ufffd\ufffd DEF", await ReadStringAsync("ABC \\ud800\\ud800 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd\ufffd DEF", await ReadStringAsync("ABC \\ud800\\ud800 DEF"));
 
             // invalid surrogates (two high back-to-back)
-            Assert.AreEqual("ABC \ufffd\ufffd\u1234 DEF", await ReadStringAsync("ABC \\ud800\\ud800\\u1234 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd\ufffd\u1234 DEF", await ReadStringAsync("ABC \\ud800\\ud800\\u1234 DEF"));
 
             // invalid surrogates (three high back-to-back)
-            Assert.AreEqual("ABC \ufffd\ufffd\ufffd DEF", await ReadStringAsync("ABC \\ud800\\ud800\\ud800 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd\ufffd\ufffd DEF", await ReadStringAsync("ABC \\ud800\\ud800\\ud800 DEF"));
 
             // invalid surrogates (high followed by a good surrogate pair)
-            Assert.AreEqual("ABC \ufffd\ud800\udc00 DEF", await ReadStringAsync("ABC \\ud800\\ud800\\udc00 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd\ud800\udc00 DEF", await ReadStringAsync("ABC \\ud800\\ud800\\udc00 DEF"));
 
             // invalid high surrogate at end of string
-            Assert.AreEqual("ABC \ufffd", await ReadStringAsync("ABC \\ud800").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd", await ReadStringAsync("ABC \\ud800"));
 
             // high surrogate not followed by low surrogate
-            Assert.AreEqual("ABC \ufffd DEF", await ReadStringAsync("ABC \\ud800 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd DEF", await ReadStringAsync("ABC \\ud800 DEF"));
 
             // low surrogate not preceded by high surrogate
-            Assert.AreEqual("ABC \ufffd\ufffd DEF", await ReadStringAsync("ABC \\udc00\\ud800 DEF").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd\ufffd DEF", await ReadStringAsync("ABC \\udc00\\ud800 DEF"));
 
             // make sure unencoded invalid surrogate characters don't make it through
-            Assert.AreEqual("\ufffd\ufffd\ufffd", await ReadStringAsync("\udc00\ud800\ud800").ConfigureAwait(true));
+            Assert.AreEqual("\ufffd\ufffd\ufffd", await ReadStringAsync("\udc00\ud800\ud800"));
 
-            Assert.AreEqual("ABC \ufffd\b", await ReadStringAsync("ABC \\ud800\\b").ConfigureAwait(true));
-            Assert.AreEqual("ABC \ufffd ", await ReadStringAsync("ABC \\ud800 ").ConfigureAwait(true));
-            Assert.AreEqual("ABC \b\ufffd", await ReadStringAsync("ABC \\b\\ud800").ConfigureAwait(true));
+            Assert.AreEqual("ABC \ufffd\b", await ReadStringAsync("ABC \\ud800\\b"));
+            Assert.AreEqual("ABC \ufffd ", await ReadStringAsync("ABC \\ud800 "));
+            Assert.AreEqual("ABC \b\ufffd", await ReadStringAsync("ABC \\b\\ud800"));
         }
 
         private async Task<string> ReadStringAsync(string input)
@@ -217,7 +217,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(@"""" + input + @""""));
 
             JsonTextReader reader = new JsonTextReader(new StreamReader(ms));
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
 
             return (string)reader.Value;
         }
@@ -248,7 +248,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             using (JsonReader jsonReader = new JsonTextReader(new StringReader(input)))
             {
-                while (await jsonReader.ReadAsync().ConfigureAwait(true))
+                while (await jsonReader.ReadAsync())
                 {
                 }
             }
@@ -269,114 +269,114 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             {
                 Assert.AreEqual(0, reader.Depth);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.StartObject);
                 Assert.AreEqual(0, reader.Depth);
                 Assert.AreEqual("", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.PropertyName);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("value", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.String);
                 Assert.AreEqual(reader.Value, @"Purple");
                 Assert.AreEqual(reader.QuoteChar, '\'');
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("value", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.PropertyName);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("array", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.StartArray);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("array", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.Integer);
                 Assert.AreEqual(1L, reader.Value);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("array[0]", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.Integer);
                 Assert.AreEqual(2L, reader.Value);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("array[1]", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.StartConstructor);
                 Assert.AreEqual("Date", reader.Value);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("array[2]", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.Integer);
                 Assert.AreEqual(1L, reader.Value);
                 Assert.AreEqual(3, reader.Depth);
                 Assert.AreEqual("array[2][0]", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.EndConstructor);
                 Assert.AreEqual(null, reader.Value);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("array[2]", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.EndArray);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("array", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.PropertyName);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("subobject", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.StartObject);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("subobject", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.PropertyName);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("subobject.prop", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.Integer);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("subobject.prop", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.PropertyName);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("subobject.proparray", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.StartArray);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("subobject.proparray", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.Integer);
                 Assert.AreEqual(3, reader.Depth);
                 Assert.AreEqual("subobject.proparray[0]", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.EndArray);
                 Assert.AreEqual(2, reader.Depth);
                 Assert.AreEqual("subobject.proparray", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.EndObject);
                 Assert.AreEqual(1, reader.Depth);
                 Assert.AreEqual("subobject", reader.Path);
 
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
                 Assert.AreEqual(reader.TokenType, JsonToken.EndObject);
                 Assert.AreEqual(0, reader.Depth);
                 Assert.AreEqual("", reader.Path);
@@ -412,10 +412,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             for (int i = 0; i < 15; i++)
             {
-                await reader.ReadAsync().ConfigureAwait(true);
+                await reader.ReadAsync();
             }
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.Null, reader.TokenType);
         }
 
@@ -444,10 +444,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             for (int i = 0; i < 14; i++)
             {
-                Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+                Assert.IsTrue(await reader.ReadAsync());
             }
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("type", reader.Value);
         }
@@ -473,7 +473,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
                 {
                     reader.ArrayPool = arrayPool;
 
-                    while (await reader.ReadAsync().ConfigureAwait(true))
+                    while (await reader.ReadAsync())
                     {
                     }
                 }
@@ -504,7 +504,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
                 {
                     reader.ArrayPool = arrayPool;
 
-                    while (await reader.ReadAsync().ConfigureAwait(true))
+                    while (await reader.ReadAsync())
                     {
                     }
                 }
@@ -530,36 +530,36 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
                 Formatting = Formatting.Indented
             })
             {
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(true).ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(true);
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("integer").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(99).ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("string").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("how now brown cow?").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("array").ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("integer");
+                await jsonWriter.WriteValueAsync(99);
+                await jsonWriter.WritePropertyNameAsync("string");
+                await jsonWriter.WriteValueAsync("how now brown cow?");
+                await jsonWriter.WritePropertyNameAsync("array");
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
                 for (int i = 0; i < 5; i++)
                 {
-                    await jsonWriter.WriteValueAsync(i).ConfigureAwait(true);
+                    await jsonWriter.WriteValueAsync(i);
                 }
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("decimal").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(990.00990099m).ConfigureAwait(true);
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("decimal");
+                await jsonWriter.WriteValueAsync(990.00990099m);
+                await jsonWriter.WriteEndObjectAsync();
 
-                await jsonWriter.WriteValueAsync(5).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync(5);
+                await jsonWriter.WriteEndArrayAsync();
 
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndObjectAsync();
 
-                await jsonWriter.WriteValueAsync("This is a string.").ConfigureAwait(true);
-                await jsonWriter.WriteNullAsync().ConfigureAwait(true);
-                await jsonWriter.WriteNullAsync().ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync("This is a string.");
+                await jsonWriter.WriteNullAsync();
+                await jsonWriter.WriteNullAsync();
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string json = sb.ToString();
@@ -590,18 +590,18 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             JsonTextReader reader = new JsonTextReader(new StringReader(json));
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual(typeof(string), reader.ValueType);
             Assert.AreEqual(20000, reader.Value.ToString().Length);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -615,16 +615,16 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             reader.SetCharBuffer(new char[2]);
 #endif
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual("<", reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(24352, Convert.ToInt32(Convert.ToChar((string)reader.Value)));
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
         }
 
@@ -634,64 +634,64 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             JsonTextReader reader = new JsonTextReader(new StringReader(@"{'prop1':[1]} 1 2 ""name"" [][]null {}{} 1.1"));
             reader.SupportMultipleContent = true;
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Null, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
         }
 
         [Test]
@@ -719,116 +719,116 @@ null//comment
 
             JsonTextReader reader = new JsonTextReader(new StreamReader(new SlowStream(json, new UTF8Encoding(false), 1)));
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual("comment*//*hi*/", reader.Value);
             Assert.AreEqual(1, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(2, reader.LineNumber);
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual(2, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("Name", reader.Value);
             Assert.AreEqual(3, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual(3, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Boolean, reader.TokenType);
             Assert.AreEqual(true, reader.Value);
             Assert.AreEqual(4, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual("comment after true", reader.Value);
             Assert.AreEqual(4, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual("comment after comma", reader.Value);
             Assert.AreEqual(5, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("ExpiryDate", reader.Value);
             Assert.AreEqual(6, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual(6, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartConstructor, reader.TokenType);
             Assert.AreEqual(9, reader.LineNumber);
             Assert.AreEqual("Date", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Null, reader.TokenType);
             Assert.AreEqual(10, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual(10, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndConstructor, reader.TokenType);
             Assert.AreEqual(11, reader.LineNumber);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("Price", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("Sizes", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual("comment ", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual("comment 1 ", reader.Value);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
         }
 
         [Test]
@@ -838,11 +838,11 @@ null//comment
 
             JsonTextReader reader = new JsonTextReader(new StreamReader(new SlowStream(json, new UTF8Encoding(false), 1)));
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Comment, reader.TokenType);
             Assert.AreEqual("comment", reader.Value);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
         }
 
         [Test]
@@ -857,55 +857,55 @@ null//comment
 
             JsonTextReader reader = new JsonTextReader(new StringReader(json));
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(0d, reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(0d, reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(0.0000025d, reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(3000000000d, reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(602214180000000000000000d, reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
 
             reader = new JsonTextReader(new StringReader(json));
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
 
-            await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            await reader.ReadAsDecimalAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(0m, reader.Value);
 
-            await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            await reader.ReadAsDecimalAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(0m, reader.Value);
 
-            await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            await reader.ReadAsDecimalAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(0.0000025m, reader.Value);
 
-            await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            await reader.ReadAsDecimalAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(3000000000m, reader.Value);
 
-            await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            await reader.ReadAsDecimalAsync();
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(602214180000000000000000m, reader.Value);
 
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
         }
 
         [Test]
@@ -914,25 +914,25 @@ null//comment
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            await writer.WriteStartArrayAsync().ConfigureAwait(true);
-            await writer.WriteValueAsync(decimal.MaxValue).ConfigureAwait(true);
-            await writer.WriteValueAsync(decimal.MinValue).ConfigureAwait(true);
-            await writer.WriteEndArrayAsync().ConfigureAwait(true);
+            await writer.WriteStartArrayAsync();
+            await writer.WriteValueAsync(decimal.MaxValue);
+            await writer.WriteValueAsync(decimal.MinValue);
+            await writer.WriteEndArrayAsync();
 
             string json = sw.ToString();
 
             StringReader sr = new StringReader(json);
             JsonTextReader reader = new JsonTextReader(sr);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
 
-            decimal? max = await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            decimal? max = await reader.ReadAsDecimalAsync();
             Assert.AreEqual(decimal.MaxValue, max);
 
-            decimal? min = await reader.ReadAsDecimalAsync().ConfigureAwait(true);
+            decimal? min = await reader.ReadAsDecimalAsync();
             Assert.AreEqual(decimal.MinValue, min);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
         }
 
 #if !DNXCORE50
@@ -943,45 +943,45 @@ null//comment
 
             JsonTextReader r = new JsonTextReader(new StringReader(json1));
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(1, r.LineNumber);
             Assert.AreEqual(1, r.LinePosition);
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(1, r.LineNumber);
             Assert.AreEqual(5, r.LinePosition);
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(1, r.LineNumber);
             Assert.AreEqual(9, r.LinePosition);
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(1, r.LineNumber);
             Assert.AreEqual(10, r.LinePosition);
 
-            Assert.IsFalse(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await r.ReadAsync());
 
             string json2 = "\n{'a':'bc'}";
 
             r = new JsonTextReader(new StringReader(json2));
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(2, r.LineNumber);
             Assert.AreEqual(1, r.LinePosition);
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(2, r.LineNumber);
             Assert.AreEqual(5, r.LinePosition);
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(2, r.LineNumber);
             Assert.AreEqual(9, r.LinePosition);
 
-            Assert.IsTrue(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await r.ReadAsync());
             Assert.AreEqual(2, r.LineNumber);
             Assert.AreEqual(10, r.LinePosition);
 
-            Assert.IsFalse(await r.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await r.ReadAsync());
         }
 #endif
     }

@@ -107,12 +107,11 @@ namespace Newtonsoft.Json
             return cancellationToken.CancelIfRequestedAsync<byte[]>() ?? Task.FromResult(ReadAsBytes());
         }
 
-
         internal async Task<byte[]> ReadArrayIntoByteArrayAsync(CancellationToken cancellationToken)
         {
             List<byte> buffer = new List<byte>();
 
-            for (;;)
+            while (true)
             {
                 if (!await ReadAsync(cancellationToken).ConfigureAwait(false))
                 {
@@ -177,7 +176,6 @@ namespace Newtonsoft.Json
         /// classes can override this behaviour for true asychronousity.</remarks>
         public virtual Task<double?> ReadAsDoubleAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-
             return Task.FromResult(ReadAsDouble());
         }
 

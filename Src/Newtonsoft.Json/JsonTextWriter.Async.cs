@@ -820,7 +820,6 @@ namespace Newtonsoft.Json
             return value == null ? DoWriteNullAsync(cancellationToken) : WriteIntegerValueAsync(value.GetValueOrDefault(), cancellationToken);
         }
 
-
 #if !PORTABLE || NETSTANDARD1_1
         internal async Task WriteValueAsync(BigInteger value, CancellationToken cancellationToken)
         {

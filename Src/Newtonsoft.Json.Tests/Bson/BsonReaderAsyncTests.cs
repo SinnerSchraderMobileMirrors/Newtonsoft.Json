@@ -55,23 +55,23 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("Blah", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual(1L, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -84,18 +84,18 @@ namespace Newtonsoft.Json.Tests.Bson
             BsonReader reader = new BsonReader(ms);
             reader.ReadRootValueAsArray = true;
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("d821eed7-4b5c-43c9-8ac2-6928e579b705", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
 
             ms = new MemoryStream(data);
@@ -118,20 +118,20 @@ namespace Newtonsoft.Json.Tests.Bson
             BsonReader reader = new BsonReader(ms);
             reader.ReadRootValueAsArray = true;
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
             Guid g = new Guid("D821EED7-4B5C-43C9-8AC2-6928E579B705");
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             Assert.AreEqual(g, reader.Value);
             Assert.AreEqual(typeof(Guid), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
 
             ms = new MemoryStream(data);
@@ -154,18 +154,18 @@ namespace Newtonsoft.Json.Tests.Bson
             BsonReader reader = new BsonReader(ms);
             reader.ReadRootValueAsArray = true;
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(99.99d, reader.Value);
             Assert.AreEqual(typeof(double), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -179,18 +179,18 @@ namespace Newtonsoft.Json.Tests.Bson
             reader.FloatParseHandling = FloatParseHandling.Decimal;
             reader.ReadRootValueAsArray = true;
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(99.99m, reader.Value);
             Assert.AreEqual(typeof(decimal), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -206,83 +206,83 @@ namespace Newtonsoft.Json.Tests.Bson
             reader.ReadRootValueAsArray = true;
             reader.DateTimeKindHandling = DateTimeKind.Utc;
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual(long.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual(long.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual((long)int.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual((long)int.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual((long)byte.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual((long)sbyte.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("a", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual((double)decimal.MaxValue, reader.Value);
             Assert.AreEqual(typeof(double), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual(double.MaxValue, reader.Value);
             Assert.AreEqual(typeof(double), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Float, reader.TokenType);
             Assert.AreEqual((double)float.MaxValue, reader.Value);
             Assert.AreEqual(typeof(double), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Boolean, reader.TokenType);
             Assert.AreEqual(true, reader.Value);
             Assert.AreEqual(typeof(bool), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             CollectionAssert.AreEquivalent(new byte[] { 0, 1, 2, 3, 4 }, (byte[])reader.Value);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Date, reader.TokenType);
             Assert.AreEqual(new DateTime(2000, 12, 29, 12, 30, 0, DateTimeKind.Utc), reader.Value);
             Assert.AreEqual(typeof(DateTime), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Date, reader.TokenType);
             Assert.AreEqual(new DateTime(2000, 12, 29, 12, 30, 0, DateTimeKind.Utc), reader.Value);
             Assert.AreEqual(typeof(DateTime), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -294,43 +294,43 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("0", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("a", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("1", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("b", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("2", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("c", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -351,28 +351,28 @@ namespace Newtonsoft.Json.Tests.Bson
             Assert.AreEqual(true, reader.ReadRootValueAsArray);
             Assert.AreEqual(DateTimeKind.Utc, reader.DateTimeKindHandling);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("a", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("b", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("c", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -395,11 +395,11 @@ namespace Newtonsoft.Json.Tests.Bson
                 Assert.AreEqual(true, reader.ReadRootValueAsArray);
                 Assert.AreEqual(DateTimeKind.Utc, reader.DateTimeKindHandling);
 
-                Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+                Assert.IsTrue(await reader.ReadAsync());
                 Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-                await reader.ReadAsInt32Async().ConfigureAwait(true);
-            }, "Could not convert string to integer: a. Path '[0]'.").ConfigureAwait(true);
+                await reader.ReadAsInt32Async();
+            }, "Could not convert string to integer: a. Path '[0]'.");
         }
 
         [Test]
@@ -416,29 +416,29 @@ namespace Newtonsoft.Json.Tests.Bson
             Assert.AreEqual(true, reader.ReadRootValueAsArray);
             Assert.AreEqual(DateTimeKind.Utc, reader.DateTimeKindHandling);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("a", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("b", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            byte[] encodedStringData = await reader.ReadAsBytesAsync().ConfigureAwait(true);
+            byte[] encodedStringData = await reader.ReadAsBytesAsync();
             Assert.IsNotNull(encodedStringData);
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             Assert.AreEqual(encodedStringData, reader.Value);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
 
             string decodedString = Encoding.UTF8.GetString(encodedStringData, 0, encodedStringData.Length);
@@ -453,31 +453,31 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("_id", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             CollectionAssert.AreEquivalent(HexToBytes("4ABBED9D1D8B0F0218000001"), (byte[])reader.Value);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("test", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("1234£56", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -491,28 +491,28 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("_id", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             CollectionAssert.AreEquivalent(HexToBytes("4A-78-93-79-17-22-00-00-00-00-61-CF"), (byte[])reader.Value);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("a", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
             for (int i = 1; i <= 8; i++)
             {
-                Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+                Assert.IsTrue(await reader.ReadAsync());
                 Assert.AreEqual(JsonToken.Float, reader.TokenType);
 
                 double value = (i != 5)
@@ -522,21 +522,21 @@ namespace Newtonsoft.Json.Tests.Bson
                 Assert.AreEqual(value, reader.Value);
             }
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("b", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("test", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -550,22 +550,22 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("regex", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual(@"/test/gim", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -579,22 +579,22 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("code", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual(@"I am code!", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -608,22 +608,22 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("undefined", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Undefined, reader.TokenType);
             Assert.AreEqual(null, reader.Value);
             Assert.AreEqual(null, reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -637,22 +637,22 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("long", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Integer, reader.TokenType);
             Assert.AreEqual(long.MaxValue, reader.Value);
             Assert.AreEqual(typeof(long), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -666,40 +666,40 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("oid", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("$ref", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("oid", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("$id", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             CollectionAssert.AreEquivalent(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }, (byte[])reader.Value);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -713,49 +713,49 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("codeWithScope", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("$code", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("for (int i = 0; i < 1000; i++)\r\n{\r\n  alert(arg1);\r\n}", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("$scope", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("arg1", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("Json.NET is awesome.", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -763,7 +763,7 @@ namespace Newtonsoft.Json.Tests.Bson
         public async Task ReadEndOfStreamAsync()
         {
             BsonReader reader = new BsonReader(new MemoryStream());
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
         }
 
         [Test]
@@ -786,21 +786,21 @@ namespace Newtonsoft.Json.Tests.Bson
             }
             string largeString = largeStringBuilder.ToString();
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual(largeString, reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual(largeString, reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -811,21 +811,21 @@ namespace Newtonsoft.Json.Tests.Bson
 
             BsonReader reader = new BsonReader(new MemoryStream(HexToBytes(bson)));
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -835,14 +835,14 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream();
             BsonWriter writer = new BsonWriter(ms);
 
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("Arguments").ConfigureAwait(true);
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("List").ConfigureAwait(true);
-            await writer.WriteStartArrayAsync().ConfigureAwait(true);
-            await writer.WriteEndArrayAsync().ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("Arguments");
+            await writer.WriteStartObjectAsync();
+            await writer.WriteEndObjectAsync();
+            await writer.WritePropertyNameAsync("List");
+            await writer.WriteStartArrayAsync();
+            await writer.WriteEndArrayAsync();
+            await writer.WriteEndObjectAsync();
 
             string bson = BitConverter.ToString(ms.ToArray());
 
@@ -850,33 +850,33 @@ namespace Newtonsoft.Json.Tests.Bson
 
             BsonReader reader = new BsonReader(new MemoryStream(HexToBytes(bson)));
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("Arguments", reader.Value.ToString());
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("List", reader.Value.ToString());
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndArray, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -889,10 +889,10 @@ namespace Newtonsoft.Json.Tests.Bson
             BsonWriter writer = new BsonWriter(ms);
             writer.DateTimeKindHandling = DateTimeKind.Unspecified;
 
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("DateTime").ConfigureAwait(true);
-            await writer.WriteValueAsync(value).ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("DateTime");
+            await writer.WriteValueAsync(value);
+            await writer.WriteEndObjectAsync();
 
             byte[] bson = ms.ToArray();
 
@@ -909,10 +909,10 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream();
             BsonWriter writer = new BsonWriter(ms);
 
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("DateTime").ConfigureAwait(true);
-            await writer.WriteValueAsync(value).ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("DateTime");
+            await writer.WriteValueAsync(value);
+            await writer.WriteEndObjectAsync();
 
             byte[] bson = ms.ToArray();
 
@@ -925,20 +925,20 @@ namespace Newtonsoft.Json.Tests.Bson
         {
             MemoryStream ms = new MemoryStream();
             BsonWriter bs = new BsonWriter(ms);
-            await bs.WriteStartObjectAsync().ConfigureAwait(true);
-            await bs.WritePropertyNameAsync("StringValue").ConfigureAwait(true);
-            await bs.WriteValueAsync(val).ConfigureAwait(true);
-            await bs.WriteEndAsync().ConfigureAwait(true);
+            await bs.WriteStartObjectAsync();
+            await bs.WritePropertyNameAsync("StringValue");
+            await bs.WriteValueAsync(val);
+            await bs.WriteEndAsync();
 
             ms.Seek(0, SeekOrigin.Begin);
 
             BsonReader reader = new BsonReader(ms);
             // object
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             // property name
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             // string
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             return (string)reader.Value;
         }
 
@@ -946,18 +946,18 @@ namespace Newtonsoft.Json.Tests.Bson
         {
             MemoryStream ms = new MemoryStream();
             BsonWriter bs = new BsonWriter(ms);
-            await bs.WriteStartObjectAsync().ConfigureAwait(true);
-            await bs.WritePropertyNameAsync(val).ConfigureAwait(true);
-            await bs.WriteValueAsync("Dummy").ConfigureAwait(true);
-            await bs.WriteEndAsync().ConfigureAwait(true);
+            await bs.WriteStartObjectAsync();
+            await bs.WritePropertyNameAsync(val);
+            await bs.WriteValueAsync("Dummy");
+            await bs.WriteEndAsync();
 
             ms.Seek(0, SeekOrigin.Begin);
 
             BsonReader reader = new BsonReader(ms);
             // object
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             // property name
-            await reader.ReadAsync().ConfigureAwait(true);
+            await reader.ReadAsync();
             return (string)reader.Value;
         }
 
@@ -971,7 +971,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await WriteAndReadStringValueAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringValueAsync(expected));
         }
 
         [Test]
@@ -984,7 +984,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected));
         }
 
         [Test]
@@ -997,7 +997,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            string result = await  WriteAndReadStringValueAsync(expected).ConfigureAwait(true);
+            string result = await  WriteAndReadStringValueAsync(expected);
             Assert.AreEqual(expected, result);
         }
 
@@ -1008,7 +1008,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro, 1); //Just one triple byte char in the string.
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected));
         }
 
         [Test]
@@ -1021,14 +1021,14 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected));
         }
 
         [Test]
         public async Task TestReadStringValueAsync()
         {
             string expected = "test";
-            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected));
         }
 
         [Test]
@@ -1037,7 +1037,7 @@ namespace Newtonsoft.Json.Tests.Bson
             StringBuilder sb = new StringBuilder();
             sb.Append('t', 150);
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await  WriteAndReadStringValueAsync(expected));
         }
 
         [Test]
@@ -1050,7 +1050,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected));
         }
 
         [Test]
@@ -1063,7 +1063,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            string result = await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true);
+            string result = await WriteAndReadStringPropertyNameAsync(expected);
             Assert.AreEqual(expected, result);
         }
 
@@ -1077,7 +1077,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected));
         }
 
         [Test]
@@ -1087,7 +1087,7 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro, 1); //Just one triple byte char in the string.
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected));
         }
 
         [Test]
@@ -1100,14 +1100,14 @@ namespace Newtonsoft.Json.Tests.Bson
             sb.Append(Euro);
 
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected));
         }
 
         [Test]
         public async Task TestReadStringPropertyNameAsync()
         {
             string expected = "test";
-            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected));
         }
 
         [Test]
@@ -1116,7 +1116,7 @@ namespace Newtonsoft.Json.Tests.Bson
             StringBuilder sb = new StringBuilder();
             sb.Append('t', 150);
             string expected = sb.ToString();
-            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected).ConfigureAwait(true));
+            Assert.AreEqual(expected, await WriteAndReadStringPropertyNameAsync(expected));
         }
 
         [Test]
@@ -1129,29 +1129,29 @@ namespace Newtonsoft.Json.Tests.Bson
             MemoryStream ms = new MemoryStream(data);
             BsonReader reader = new BsonReader(ms);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("/abc/i", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("//", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -1167,38 +1167,38 @@ namespace Newtonsoft.Json.Tests.Bson
             var memoryStream = new MemoryStream();
             var bsonWriter = new BsonWriter(memoryStream);
             parsed.WriteTo(bsonWriter);
-            await bsonWriter.FlushAsync().ConfigureAwait(true);
+            await bsonWriter.FlushAsync();
             memoryStream.Position = 0;
 
             BsonReader reader = new BsonReader(memoryStream);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("AboutMe", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("<p>I'm the Director for Research and Development for <a href=\"http://www.prophoenix.com\" rel=\"nofollow\">ProPhoenix</a>, a public safety software company.  This position allows me to investigate new and existing technologies and incorporate them into our product line, with the end goal being to help public safety agencies to do their jobs more effeciently and safely.</p>\r\n\r\n<p>I'm an advocate for PowerShell, as I believe it encourages administrative best practices and allows developers to provide additional access to their applications, without needing to explicity write code for each administrative feature.  Part of my advocacy for PowerShell includes <a href=\"http://blog.usepowershell.com\" rel=\"nofollow\">my blog</a>, appearances on various podcasts, and acting as a Community Director for <a href=\"http://powershellcommunity.org\" rel=\"nofollow\">PowerShellCommunity.Org</a></p>\r\n\r\n<p>I’m also a co-host of Mind of Root (a weekly audio podcast about systems administration, tech news, and topics).</p>\r\n", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("WebsiteUrl", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("http://blog.usepowershell.com", reader.Value);
             Assert.AreEqual(typeof(string), reader.ValueType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
 
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsFalse(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.None, reader.TokenType);
         }
 
@@ -1212,23 +1212,23 @@ namespace Newtonsoft.Json.Tests.Bson
             var memoryStream = new MemoryStream();
             var bsonWriter = new BsonWriter(memoryStream);
             parsed.WriteTo(bsonWriter);
-            await bsonWriter.FlushAsync().ConfigureAwait(true);
+            await bsonWriter.FlushAsync();
             memoryStream.Position = 0;
 
             BsonReader reader = new BsonReader(memoryStream);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.StartObject, reader.TokenType);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
             Assert.AreEqual("ΕΝΤΟΛΗ ΧΧΧ ΧΧΧΧΧΧΧΧΧ ΤΑ ΠΡΩΤΑΣΦΑΛΙΣΤΗΡΙΑ ΠΟΥ ΔΕΝ ΕΧΟΥΝ ΥΠΟΛΟΙΠΟ ΝΑ ΤΑ ΣΤΕΛΝΟΥΜΕ ΑΠΕΥΘΕΙΑΣ ΣΤΟΥΣ ΠΕΛΑΤΕΣ", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.String, reader.TokenType);
             Assert.AreEqual("ΕΝΤΟΛΗ ΧΧΧ ΧΧΧΧΧΧΧΧΧ ΤΑ ΠΡΩΤΑΣΦΑΛΙΣΤΗΡΙΑ ΠΟΥ ΔΕΝ ΕΧΟΥΝ ΥΠΟΛΟΙΠΟ ΝΑ ΤΑ ΣΤΕΛΝΟΥΜΕ ΑΠΕΥΘΕΙΑΣ ΣΤΟΥΣ ΠΕΛΑΤΕΣ", reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
         }
 
@@ -1239,25 +1239,25 @@ namespace Newtonsoft.Json.Tests.Bson
 
             MemoryStream ms = new MemoryStream();
             BsonWriter writer = new BsonWriter(ms);
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("TheGuid").ConfigureAwait(true);
-            await writer.WriteValueAsync(g).ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
-            await writer.FlushAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("TheGuid");
+            await writer.WriteValueAsync(g);
+            await writer.WriteEndObjectAsync();
+            await writer.FlushAsync();
 
             byte[] bytes = ms.ToArray();
 
             BsonReader reader = new BsonReader(new MemoryStream(bytes));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsTrue(await reader.ReadAsync());
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             Assert.AreEqual(typeof(Guid), reader.ValueType);
             Assert.AreEqual(g, (Guid)reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsFalse(await reader.ReadAsync());
 
             JsonSerializer serializer = new JsonSerializer();
             serializer.MetadataPropertyHandling = MetadataPropertyHandling.Default;
@@ -1273,25 +1273,25 @@ namespace Newtonsoft.Json.Tests.Bson
 
             MemoryStream ms = new MemoryStream();
             BsonWriter writer = new BsonWriter(ms);
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("TheGuid").ConfigureAwait(true);
-            await writer.WriteValueAsync(g).ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
-            await writer.FlushAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("TheGuid");
+            await writer.WriteValueAsync(g);
+            await writer.WriteEndObjectAsync();
+            await writer.FlushAsync();
 
             byte[] bytes = ms.ToArray();
 
             BsonReader reader = new BsonReader(new MemoryStream(bytes));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsTrue(await reader.ReadAsync());
 
             CollectionAssert.AreEquivalent(g.ToByteArray(), reader.ReadAsBytes());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
             CollectionAssert.AreEquivalent(g.ToByteArray(), (byte[])reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsFalse(await reader.ReadAsync());
 
             JsonSerializer serializer = new JsonSerializer();
             BytesTestClass b = serializer.Deserialize<BytesTestClass>(new BsonReader(new MemoryStream(bytes)));
@@ -1305,25 +1305,25 @@ namespace Newtonsoft.Json.Tests.Bson
 
             MemoryStream ms = new MemoryStream();
             BsonWriter writer = new BsonWriter(ms);
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("TheGuid").ConfigureAwait(true);
-            await writer.WriteValueAsync(g).ConfigureAwait(true);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
-            await writer.FlushAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("TheGuid");
+            await writer.WriteValueAsync(g);
+            await writer.WriteEndObjectAsync();
+            await writer.FlushAsync();
 
             byte[] bytes = ms.ToArray();
 
             BsonReader reader = new BsonReader(new MemoryStream(bytes));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsTrue(await reader.ReadAsync());
 
             CollectionAssert.AreEquivalent(g.ToByteArray(), reader.ReadAsBytes());
             Assert.AreEqual(JsonToken.Bytes, reader.TokenType);
             Assert.AreEqual(typeof(byte[]), reader.ValueType);
             CollectionAssert.AreEquivalent(g.ToByteArray(), (byte[])reader.Value);
 
-            Assert.IsTrue(await reader.ReadAsync().ConfigureAwait(true));
-            Assert.IsFalse(await reader.ReadAsync().ConfigureAwait(true));
+            Assert.IsTrue(await reader.ReadAsync());
+            Assert.IsFalse(await reader.ReadAsync());
 
             JsonSerializer serializer = new JsonSerializer();
             serializer.MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead;

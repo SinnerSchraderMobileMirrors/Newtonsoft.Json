@@ -1049,13 +1049,11 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
                 serverSocket.Send(bytes);
                 Console.WriteLine("server send: " + bytes.Length);
 
-
                 clientReceivedEvent.WaitOne();
 
             });
 
             serverStartedEvent.WaitOne();
-
 
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Blocking = false;
@@ -1175,8 +1173,6 @@ second line
 third line", jsonTextReader.Value);
         }
 
-
-
 #if !PORTABLE || NETSTANDARD1_1
         [Test]
         public async Task ReadBigIntegerAsync()
@@ -1215,7 +1211,6 @@ third line", jsonTextReader.Value);
             Assert.AreEqual(BigInteger.Parse("333333333333333333333333333333333333333"), i);
         }
 #endif
-
 
         [Test]
         public async Task ReadBadMSDateAsStringAsync()

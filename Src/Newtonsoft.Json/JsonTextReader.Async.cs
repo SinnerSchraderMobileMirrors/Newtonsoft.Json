@@ -73,7 +73,7 @@ namespace Newtonsoft.Json
         {
             EnsureBuffer();
 
-            for (;;)
+            while (true)
             {
                 switch (_currentState)
                 {
@@ -153,7 +153,7 @@ namespace Newtonsoft.Json
 
         private async Task<bool> ParseValueAsync(CancellationToken cancellationToken)
         {
-            for (;;)
+            while (true)
             {
                 char currentChar = _chars[_charPos];
 
@@ -189,13 +189,13 @@ namespace Newtonsoft.Json
                             switch (_chars[_charPos + 1])
                             {
                                 case 'u':
-                                await ParseNullAsync(cancellationToken).ConfigureAwait(false);
+                                    await ParseNullAsync(cancellationToken).ConfigureAwait(false);
                                     break;
                                 case 'e':
-                                await ParseConstructorAsync(cancellationToken).ConfigureAwait(false);
+                                    await ParseConstructorAsync(cancellationToken).ConfigureAwait(false);
                                     break;
                                 default:
-                                throw CreateUnexpectedCharacterException(_chars[_charPos]);
+                                    throw CreateUnexpectedCharacterException(_chars[_charPos]);
                             }
                         }
                         else
@@ -287,7 +287,7 @@ namespace Newtonsoft.Json
             int lastWritePosition = _charPos;
             _stringBuffer.Position = 0;
 
-            for (;;)
+            while (true)
             {
                 switch (_chars[charPos++])
                 {
@@ -469,7 +469,6 @@ namespace Newtonsoft.Json
         private async Task<char> ParseUnicodeAsync(CancellationToken cancellationToken)
         {
             return ConvertUnicode(await EnsureCharsAsync(4, true, cancellationToken).ConfigureAwait(false));
-
         }
 
         private Task<bool> EnsureCharsAsync(int relativePosition, bool append, CancellationToken cancellationToken)
@@ -511,7 +510,7 @@ namespace Newtonsoft.Json
 
         private async Task<bool> ParseObjectAsync(CancellationToken cancellationToken)
         {
-            for (;;)
+            while (true)
             {
                 char currentChar = _chars[_charPos];
 
@@ -595,7 +594,7 @@ namespace Newtonsoft.Json
 
             int initialPosition = _charPos;
 
-            for (;;)
+            while (true)
             {
                 switch (_chars[_charPos])
                 {
@@ -664,7 +663,7 @@ namespace Newtonsoft.Json
 
         private async Task<bool> ParsePostValueAsync(CancellationToken cancellationToken)
         {
-            for (;;)
+            while (true)
             {
                 char currentChar = _chars[_charPos];
 
@@ -847,7 +846,7 @@ namespace Newtonsoft.Json
                 int initialPosition = _charPos;
                 int endPosition;
 
-                for (;;)
+                while (true)
                 {
                     char currentChar = _chars[_charPos];
                     if (currentChar == '\0')
@@ -1044,7 +1043,7 @@ namespace Newtonsoft.Json
             int initialPosition = _charPos;
 
             // parse unquoted property name until whitespace or colon
-            for (;;)
+            while (true)
             {
                 char currentChar = _chars[_charPos];
                 if (currentChar == '\0')
@@ -1142,7 +1141,7 @@ namespace Newtonsoft.Json
                 case State.Constructor:
                 case State.ConstructorStart:
                 case State.PostValue:
-                    for (;;)
+                    while (true)
                     {
                         char currentChar = _chars[_charPos];
 
@@ -1294,7 +1293,7 @@ namespace Newtonsoft.Json
                 case State.Constructor:
                 case State.ConstructorStart:
                 case State.PostValue:
-                    for (;;)
+                    while (true)
                     {
                         char currentChar = _chars[_charPos];
 
@@ -1556,7 +1555,7 @@ namespace Newtonsoft.Json
                 case State.Constructor:
                 case State.ConstructorStart:
                 case State.PostValue:
-                    for (;;)
+                    while (true)
                     {
                         char currentChar = _chars[_charPos];
 

@@ -243,7 +243,7 @@ namespace Newtonsoft.Json
             cancellationToken.ThrowIfCancellationRequested();
             int levelsToComplete = CalculateLevelsToComplete(type);
 
-            while(levelsToComplete-- > 0)
+            while (levelsToComplete-- > 0)
             {
                 JsonToken token = GetCloseTokenForType(Pop());
 
@@ -558,7 +558,6 @@ namespace Newtonsoft.Json
             switch (token)
             {
                 case JsonToken.None:
-
                     // read to next
                     return AsyncUtils.CompletedTask;
                 case JsonToken.StartObject:

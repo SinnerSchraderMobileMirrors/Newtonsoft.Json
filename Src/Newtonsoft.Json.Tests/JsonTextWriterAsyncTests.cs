@@ -65,21 +65,21 @@ namespace Newtonsoft.Json.Tests
                 {
                     writer.ArrayPool = arrayPool;
 
-                    await writer.WriteStartObjectAsync().ConfigureAwait(true);
+                    await writer.WriteStartObjectAsync();
 
-                    await writer.WritePropertyNameAsync("Prop1").ConfigureAwait(true);
-                    await writer.WriteValueAsync(new DateTime(2000, 12, 12, 12, 12, 12, DateTimeKind.Utc)).ConfigureAwait(true);
+                    await writer.WritePropertyNameAsync("Prop1");
+                    await writer.WriteValueAsync(new DateTime(2000, 12, 12, 12, 12, 12, DateTimeKind.Utc));
 
-                    await writer.WritePropertyNameAsync("Prop2").ConfigureAwait(true);
-                    await writer.WriteValueAsync(longString).ConfigureAwait(true);
+                    await writer.WritePropertyNameAsync("Prop2");
+                    await writer.WriteValueAsync(longString);
 
-                    await writer.WritePropertyNameAsync("Prop3").ConfigureAwait(true);
-                    await writer.WriteValueAsync(longEscapedString).ConfigureAwait(true);
+                    await writer.WritePropertyNameAsync("Prop3");
+                    await writer.WriteValueAsync(longEscapedString);
 
-                    await writer.WritePropertyNameAsync("Prop4").ConfigureAwait(true);
-                    await writer.WriteValueAsync(longerEscapedString).ConfigureAwait(true);
+                    await writer.WritePropertyNameAsync("Prop4");
+                    await writer.WriteValueAsync(longerEscapedString);
 
-                    await writer.WriteEndObjectAsync().ConfigureAwait(true);
+                    await writer.WriteEndObjectAsync();
                 }
 
                 if ((i + 1) % 100 == 0)
@@ -106,17 +106,16 @@ namespace Newtonsoft.Json.Tests
                 {
                     writer.ArrayPool = arrayPool;
 
-                    await writer.WriteStartObjectAsync().ConfigureAwait(true);
+                    await writer.WriteStartObjectAsync();
 
-                    await writer.WritePropertyNameAsync("Prop1").ConfigureAwait(true);
-                    await writer.WriteValueAsync(new DateTime(2000, 12, 12, 12, 12, 12, DateTimeKind.Utc)).ConfigureAwait(true);
+                    await writer.WritePropertyNameAsync("Prop1");
+                    await writer.WriteValueAsync(new DateTime(2000, 12, 12, 12, 12, 12, DateTimeKind.Utc));
 
-                    await writer.WritePropertyNameAsync("Prop2").ConfigureAwait(true);
-                    await writer.WriteValueAsync("This is an escaped \n string!").ConfigureAwait(true);
+                    await writer.WritePropertyNameAsync("Prop2");
+                    await writer.WriteValueAsync("This is an escaped \n string!");
 
-                    await writer.WriteValueAsync("Error!").ConfigureAwait(true);
+                    await writer.WriteValueAsync("Error!");
                 }
-
 
                 Assert.Fail();
             }
@@ -141,10 +140,10 @@ namespace Newtonsoft.Json.Tests
                 Formatting = Formatting.Indented
             })
             {
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("prop").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(true).ConfigureAwait(true);
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("prop");
+                await jsonWriter.WriteValueAsync(true);
+                await jsonWriter.WriteEndObjectAsync();
             }
 
             byte[] data = ms.ToArray();
@@ -161,13 +160,13 @@ namespace Newtonsoft.Json.Tests
             StringWriter sw = new StringWriter(sb);
             JsonTextWriter writer = new JsonTextWriter(sw) { QuoteName = false };
 
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
 
-            await writer.WritePropertyNameAsync("name").ConfigureAwait(true);
-            await writer.WriteValueAsync("value").ConfigureAwait(true);
+            await writer.WritePropertyNameAsync("name");
+            await writer.WriteValueAsync("value");
 
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
-            await writer.FlushAsync().ConfigureAwait(true);
+            await writer.WriteEndObjectAsync();
+            await writer.FlushAsync();
 
             Assert.AreEqual(@"{name:""value""}", sb.ToString());
         }
@@ -179,14 +178,14 @@ namespace Newtonsoft.Json.Tests
             JsonTextWriter writer = new JsonTextWriter(new StreamWriter(ms));
 
             Assert.IsTrue(ms.CanRead);
-            await writer.CloseAsync().ConfigureAwait(true);
+            await writer.CloseAsync();
             Assert.IsFalse(ms.CanRead);
 
             ms = new MemoryStream();
             writer = new JsonTextWriter(new StreamWriter(ms)) { CloseOutput = false };
 
             Assert.IsTrue(ms.CanRead);
-            await writer.CloseAsync().ConfigureAwait(true);
+            await writer.CloseAsync();
             Assert.IsTrue(ms.CanRead);
         }
 
@@ -196,7 +195,7 @@ namespace Newtonsoft.Json.Tests
         {
             var sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
-            await writer.WriteValueAsync(new ConvertibleInt(1)).ConfigureAwait(true);
+            await writer.WriteValueAsync(new ConvertibleInt(1));
 
             Assert.AreEqual("1", sw.ToString());
         }
@@ -210,21 +209,21 @@ namespace Newtonsoft.Json.Tests
 
             using (JsonWriter jsonWriter = new JsonTextWriter(sw))
             {
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync('@').ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("\r\n\t\f\b?{\\r\\n\"\'").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(true).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(10).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(10.99).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0.99).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0.000000000000000001d).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0.000000000000000001m).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((string)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((object)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("This is a string.").ConfigureAwait(true);
-                await jsonWriter.WriteNullAsync().ConfigureAwait(true);
-                await jsonWriter.WriteUndefinedAsync().ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync('@');
+                await jsonWriter.WriteValueAsync("\r\n\t\f\b?{\\r\\n\"\'");
+                await jsonWriter.WriteValueAsync(true);
+                await jsonWriter.WriteValueAsync(10);
+                await jsonWriter.WriteValueAsync(10.99);
+                await jsonWriter.WriteValueAsync(0.99);
+                await jsonWriter.WriteValueAsync(0.000000000000000001d);
+                await jsonWriter.WriteValueAsync(0.000000000000000001m);
+                await jsonWriter.WriteValueAsync((string)null);
+                await jsonWriter.WriteValueAsync((object)null);
+                await jsonWriter.WriteValueAsync("This is a string.");
+                await jsonWriter.WriteNullAsync();
+                await jsonWriter.WriteUndefinedAsync();
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string expected = @"[""@"",""\r\n\t\f\b?{\\r\\n\""'"",true,10,10.99,0.99,1E-18,0.000000000000000001,null,null,""This is a string."",null,undefined]";
@@ -239,38 +238,38 @@ namespace Newtonsoft.Json.Tests
             StringWriter sw = new StringWriter();
             using (JsonTextWriter jsonWriter = new JsonTextWriter(sw))
             {
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((char?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((char?)'c').ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((bool?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((bool?)true).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((byte?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((byte?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((sbyte?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((sbyte?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((short?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((short?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((ushort?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((ushort?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((int?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((int?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((uint?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((uint?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((long?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((long?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((ulong?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((ulong?)1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((double?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((double?)1.1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((float?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((float?)1.1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((decimal?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((decimal?)1.1m).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((DateTime?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((DateTime?)new DateTime(DateTimeUtils.InitialJavaScriptDateTicks, DateTimeKind.Utc)).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((DateTimeOffset?)null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((DateTimeOffset?)new DateTimeOffset(DateTimeUtils.InitialJavaScriptDateTicks, TimeSpan.Zero)).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync((char?)null);
+                await jsonWriter.WriteValueAsync((char?)'c');
+                await jsonWriter.WriteValueAsync((bool?)null);
+                await jsonWriter.WriteValueAsync((bool?)true);
+                await jsonWriter.WriteValueAsync((byte?)null);
+                await jsonWriter.WriteValueAsync((byte?)1);
+                await jsonWriter.WriteValueAsync((sbyte?)null);
+                await jsonWriter.WriteValueAsync((sbyte?)1);
+                await jsonWriter.WriteValueAsync((short?)null);
+                await jsonWriter.WriteValueAsync((short?)1);
+                await jsonWriter.WriteValueAsync((ushort?)null);
+                await jsonWriter.WriteValueAsync((ushort?)1);
+                await jsonWriter.WriteValueAsync((int?)null);
+                await jsonWriter.WriteValueAsync((int?)1);
+                await jsonWriter.WriteValueAsync((uint?)null);
+                await jsonWriter.WriteValueAsync((uint?)1);
+                await jsonWriter.WriteValueAsync((long?)null);
+                await jsonWriter.WriteValueAsync((long?)1);
+                await jsonWriter.WriteValueAsync((ulong?)null);
+                await jsonWriter.WriteValueAsync((ulong?)1);
+                await jsonWriter.WriteValueAsync((double?)null);
+                await jsonWriter.WriteValueAsync((double?)1.1);
+                await jsonWriter.WriteValueAsync((float?)null);
+                await jsonWriter.WriteValueAsync((float?)1.1);
+                await jsonWriter.WriteValueAsync((decimal?)null);
+                await jsonWriter.WriteValueAsync((decimal?)1.1m);
+                await jsonWriter.WriteValueAsync((DateTime?)null);
+                await jsonWriter.WriteValueAsync((DateTime?)new DateTime(DateTimeUtils.InitialJavaScriptDateTicks, DateTimeKind.Utc));
+                await jsonWriter.WriteValueAsync((DateTimeOffset?)null);
+                await jsonWriter.WriteValueAsync((DateTimeOffset?)new DateTimeOffset(DateTimeUtils.InitialJavaScriptDateTicks, TimeSpan.Zero));
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string json = sw.ToString();
@@ -287,9 +286,9 @@ namespace Newtonsoft.Json.Tests
             {
                 char? value = 'c';
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((object)value).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync((object)value);
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string json = sw.ToString();
@@ -306,11 +305,11 @@ namespace Newtonsoft.Json.Tests
                 StringWriter sw = new StringWriter();
                 using (JsonTextWriter jsonWriter = new JsonTextWriter(sw))
                 {
-                    await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                    await jsonWriter.WriteValueAsync(new Version(1, 1, 1, 1)).ConfigureAwait(true);
-                    await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                    await jsonWriter.WriteStartArrayAsync();
+                    await jsonWriter.WriteValueAsync(new Version(1, 1, 1, 1));
+                    await jsonWriter.WriteEndArrayAsync();
                 }
-            }, @"Unsupported type: System.Version. Use the JsonSerializer class to get the object's JSON representation. Path ''.").ConfigureAwait(true);
+            }, @"Unsupported type: System.Version. Use the JsonSerializer class to get the object's JSON representation. Path ''.");
         }
 
         [Test]
@@ -321,12 +320,12 @@ namespace Newtonsoft.Json.Tests
 
             using (JsonWriter jsonWriter = new JsonTextWriter(sw))
             {
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(@"""These pretzels are making me thirsty!""").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("Jeff's house was burninated.").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("1. You don't talk about fight club.\r\n2. You don't talk about fight club.").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("35% of\t statistics\n are made\r up.").ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(@"""These pretzels are making me thirsty!""");
+                await jsonWriter.WriteValueAsync("Jeff's house was burninated.");
+                await jsonWriter.WriteValueAsync("1. You don't talk about fight club.\r\n2. You don't talk about fight club.");
+                await jsonWriter.WriteValueAsync("35% of\t statistics\n are made\r up.");
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string expected = @"[""\""These pretzels are making me thirsty!\"""",""Jeff's house was burninated."",""1. You don't talk about fight club.\r\n2. You don't talk about fight club."",""35% of\t statistics\n are made\r up.""]";
@@ -345,18 +344,18 @@ namespace Newtonsoft.Json.Tests
             {
                 jsonWriter.Formatting = Formatting.Indented;
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("CPU").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("Intel").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("PSU").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("500W").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("Drives").ConfigureAwait(true);
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("DVD read/writer").ConfigureAwait(true);
-                await jsonWriter.WriteCommentAsync("(broken)").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("500 gigabyte hard drive").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("200 gigabype hard drive").ConfigureAwait(true);
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("CPU");
+                await jsonWriter.WriteValueAsync("Intel");
+                await jsonWriter.WritePropertyNameAsync("PSU");
+                await jsonWriter.WriteValueAsync("500W");
+                await jsonWriter.WritePropertyNameAsync("Drives");
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync("DVD read/writer");
+                await jsonWriter.WriteCommentAsync("(broken)");
+                await jsonWriter.WriteValueAsync("500 gigabyte hard drive");
+                await jsonWriter.WriteValueAsync("200 gigabype hard drive");
+                await jsonWriter.WriteEndObjectAsync();
                 Assert.AreEqual(WriteState.Start, jsonWriter.WriteState);
             }
 
@@ -385,18 +384,18 @@ namespace Newtonsoft.Json.Tests
             {
                 jsonWriter.Formatting = Formatting.Indented;
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("CPU").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("Intel").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("PSU").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("500W").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("Drives").ConfigureAwait(true);
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("DVD read/writer").ConfigureAwait(true);
-                await jsonWriter.WriteCommentAsync("(broken)").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("500 gigabyte hard drive").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("200 gigabype hard drive").ConfigureAwait(true);
-                await jsonWriter.CloseAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("CPU");
+                await jsonWriter.WriteValueAsync("Intel");
+                await jsonWriter.WritePropertyNameAsync("PSU");
+                await jsonWriter.WriteValueAsync("500W");
+                await jsonWriter.WritePropertyNameAsync("Drives");
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync("DVD read/writer");
+                await jsonWriter.WriteCommentAsync("(broken)");
+                await jsonWriter.WriteValueAsync("500 gigabyte hard drive");
+                await jsonWriter.WriteValueAsync("200 gigabype hard drive");
+                await jsonWriter.CloseAsync();
             }
 
             string expected = @"{
@@ -424,19 +423,19 @@ namespace Newtonsoft.Json.Tests
             {
                 jsonWriter.Formatting = Formatting.Indented;
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("CPU").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("Intel").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("PSU").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("500W").ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("Drives").ConfigureAwait(true);
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("DVD read/writer").ConfigureAwait(true);
-                await jsonWriter.WriteCommentAsync("(broken)").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("500 gigabyte hard drive").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("200 gigabype hard drive").ConfigureAwait(true);
-                await jsonWriter.WriteEndAsync().ConfigureAwait(true);
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("CPU");
+                await jsonWriter.WriteValueAsync("Intel");
+                await jsonWriter.WritePropertyNameAsync("PSU");
+                await jsonWriter.WriteValueAsync("500W");
+                await jsonWriter.WritePropertyNameAsync("Drives");
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync("DVD read/writer");
+                await jsonWriter.WriteCommentAsync("(broken)");
+                await jsonWriter.WriteValueAsync("500 gigabyte hard drive");
+                await jsonWriter.WriteValueAsync("200 gigabype hard drive");
+                await jsonWriter.WriteEndAsync();
+                await jsonWriter.WriteEndObjectAsync();
                 Assert.AreEqual(WriteState.Start, jsonWriter.WriteState);
             }
 
@@ -476,34 +475,34 @@ namespace Newtonsoft.Json.Tests
             {
                 Assert.AreEqual(WriteState.Start, jsonWriter.WriteState);
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
                 Assert.AreEqual(WriteState.Object, jsonWriter.WriteState);
                 Assert.AreEqual("", jsonWriter.Path);
 
-                await jsonWriter.WritePropertyNameAsync("CPU").ConfigureAwait(true);
+                await jsonWriter.WritePropertyNameAsync("CPU");
                 Assert.AreEqual(WriteState.Property, jsonWriter.WriteState);
                 Assert.AreEqual("CPU", jsonWriter.Path);
 
-                await jsonWriter.WriteValueAsync("Intel").ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync("Intel");
                 Assert.AreEqual(WriteState.Object, jsonWriter.WriteState);
                 Assert.AreEqual("CPU", jsonWriter.Path);
 
-                await jsonWriter.WritePropertyNameAsync("Drives").ConfigureAwait(true);
+                await jsonWriter.WritePropertyNameAsync("Drives");
                 Assert.AreEqual(WriteState.Property, jsonWriter.WriteState);
                 Assert.AreEqual("Drives", jsonWriter.Path);
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
                 Assert.AreEqual(WriteState.Array, jsonWriter.WriteState);
 
-                await jsonWriter.WriteValueAsync("DVD read/writer").ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync("DVD read/writer");
                 Assert.AreEqual(WriteState.Array, jsonWriter.WriteState);
                 Assert.AreEqual("Drives[0]", jsonWriter.Path);
 
-                await jsonWriter.WriteEndAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndAsync();
                 Assert.AreEqual(WriteState.Object, jsonWriter.WriteState);
                 Assert.AreEqual("Drives", jsonWriter.Path);
 
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndObjectAsync();
                 Assert.AreEqual(WriteState.Start, jsonWriter.WriteState);
                 Assert.AreEqual("", jsonWriter.Path);
             }
@@ -520,16 +519,16 @@ namespace Newtonsoft.Json.Tests
                 jsonWriter.Formatting = Formatting.Indented;
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.Symbol;
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteValueAsync(double.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(double.NegativeInfinity);
+                await jsonWriter.WriteValueAsync(float.NaN);
+                await jsonWriter.WriteValueAsync(float.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(float.NegativeInfinity);
+                await jsonWriter.WriteEndArrayAsync();
 
-                await jsonWriter.FlushAsync().ConfigureAwait(true);
+                await jsonWriter.FlushAsync();
             }
 
             string expected = @"[
@@ -556,22 +555,22 @@ namespace Newtonsoft.Json.Tests
                 jsonWriter.Formatting = Formatting.Indented;
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.DefaultValue;
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((double?)double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((double?)double.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((double?)double.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((float?)float.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((float?)float.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((float?)float.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteValueAsync(double.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(double.NegativeInfinity);
+                await jsonWriter.WriteValueAsync(float.NaN);
+                await jsonWriter.WriteValueAsync(float.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(float.NegativeInfinity);
+                await jsonWriter.WriteValueAsync((double?)double.NaN);
+                await jsonWriter.WriteValueAsync((double?)double.PositiveInfinity);
+                await jsonWriter.WriteValueAsync((double?)double.NegativeInfinity);
+                await jsonWriter.WriteValueAsync((float?)float.NaN);
+                await jsonWriter.WriteValueAsync((float?)float.PositiveInfinity);
+                await jsonWriter.WriteValueAsync((float?)float.NegativeInfinity);
+                await jsonWriter.WriteEndArrayAsync();
 
-                await jsonWriter.FlushAsync().ConfigureAwait(true);
+                await jsonWriter.FlushAsync();
             }
 
             string expected = @"[
@@ -604,16 +603,16 @@ namespace Newtonsoft.Json.Tests
                 jsonWriter.Formatting = Formatting.Indented;
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.String;
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteValueAsync(double.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(double.NegativeInfinity);
+                await jsonWriter.WriteValueAsync(float.NaN);
+                await jsonWriter.WriteValueAsync(float.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(float.NegativeInfinity);
+                await jsonWriter.WriteEndArrayAsync();
 
-                await jsonWriter.FlushAsync().ConfigureAwait(true);
+                await jsonWriter.FlushAsync();
             }
 
             string expected = @"[
@@ -641,16 +640,16 @@ namespace Newtonsoft.Json.Tests
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.String;
                 jsonWriter.QuoteChar = '\'';
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteValueAsync(double.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(double.NegativeInfinity);
+                await jsonWriter.WriteValueAsync(float.NaN);
+                await jsonWriter.WriteValueAsync(float.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(float.NegativeInfinity);
+                await jsonWriter.WriteEndArrayAsync();
 
-                await jsonWriter.FlushAsync().ConfigureAwait(true);
+                await jsonWriter.FlushAsync();
             }
 
             string expected = @"[
@@ -677,11 +676,11 @@ namespace Newtonsoft.Json.Tests
                 jsonWriter.Formatting = Formatting.Indented;
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.Symbol;
 
-                await jsonWriter.WriteRawAsync("[1,2,3,4,5]").ConfigureAwait(true);
-                await jsonWriter.WriteWhitespaceAsync("  ").ConfigureAwait(true);
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteRawAsync("[1,2,3,4,5]");
+                await jsonWriter.WriteWhitespaceAsync("  ");
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string expected = @"[1,2,3,4,5]  [
@@ -703,12 +702,12 @@ namespace Newtonsoft.Json.Tests
                 jsonWriter.Formatting = Formatting.Indented;
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.Symbol;
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteRawAsync(",[1,2,3,4,5]").ConfigureAwait(true);
-                await jsonWriter.WriteRawAsync(",[1,2,3,4,5]").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteRawAsync(",[1,2,3,4,5]");
+                await jsonWriter.WriteRawAsync(",[1,2,3,4,5]");
+                await jsonWriter.WriteValueAsync(float.NaN);
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string expected = @"[
@@ -730,9 +729,9 @@ namespace Newtonsoft.Json.Tests
             {
                 jsonWriter.Formatting = Formatting.Indented;
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WriteRawAsync(@"""PropertyName"":[1,2,3,4,5]").ConfigureAwait(true);
-                await jsonWriter.WriteEndAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WriteRawAsync(@"""PropertyName"":[1,2,3,4,5]");
+                await jsonWriter.WriteEndAsync();
             }
 
             string expected = @"{""PropertyName"":[1,2,3,4,5]}";
@@ -751,7 +750,7 @@ namespace Newtonsoft.Json.Tests
 
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
-            await writer.WriteTokenAsync(reader, cancel).ConfigureAwait(true);
+            await writer.WriteTokenAsync(reader, cancel);
 
             Assert.AreEqual("1", sw.ToString());
         }
@@ -767,17 +766,17 @@ namespace Newtonsoft.Json.Tests
                 int i = 0;
                 string rawJson = "[1,2]";
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
 
                 while (i < 3)
                 {
-                    await jsonWriter.WritePropertyNameAsync("d" + i).ConfigureAwait(true);
-                    await jsonWriter.WriteRawValueAsync(rawJson).ConfigureAwait(true);
+                    await jsonWriter.WritePropertyNameAsync("d" + i);
+                    await jsonWriter.WriteRawValueAsync(rawJson);
 
                     i++;
                 }
 
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndObjectAsync();
             }
 
             Assert.AreEqual(@"{""d0"":[1,2],""d1"":[1,2],""d2"":[1,2]}", sb.ToString());
@@ -791,17 +790,17 @@ namespace Newtonsoft.Json.Tests
 
             using (JsonWriter jsonWriter = new JsonTextWriter(sw))
             {
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("con").ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("con");
 
-                await jsonWriter.WriteStartConstructorAsync("Ext.data.JsonStore").ConfigureAwait(true);
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WritePropertyNameAsync("aa").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync("aa").ConfigureAwait(true);
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
-                await jsonWriter.WriteEndConstructorAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartConstructorAsync("Ext.data.JsonStore");
+                await jsonWriter.WriteStartObjectAsync();
+                await jsonWriter.WritePropertyNameAsync("aa");
+                await jsonWriter.WriteValueAsync("aa");
+                await jsonWriter.WriteEndObjectAsync();
+                await jsonWriter.WriteEndConstructorAsync();
 
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndObjectAsync();
             }
 
             Assert.AreEqual(@"{""con"":new Ext.data.JsonStore({""aa"":""aa""})}", sb.ToString());
@@ -817,25 +816,25 @@ namespace Newtonsoft.Json.Tests
             {
                 jsonWriter.FloatFormatHandling = FloatFormatHandling.Symbol;
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
 
-                await jsonWriter.WriteValueAsync(0.0).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0f).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0.1).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(1.0).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(1.000001).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0.000001).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.Epsilon).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.MaxValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.MinValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.PositiveInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NegativeInfinity).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(float.NaN).ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync(0.0);
+                await jsonWriter.WriteValueAsync(0f);
+                await jsonWriter.WriteValueAsync(0.1);
+                await jsonWriter.WriteValueAsync(1.0);
+                await jsonWriter.WriteValueAsync(1.000001);
+                await jsonWriter.WriteValueAsync(0.000001);
+                await jsonWriter.WriteValueAsync(double.Epsilon);
+                await jsonWriter.WriteValueAsync(double.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(double.NegativeInfinity);
+                await jsonWriter.WriteValueAsync(double.NaN);
+                await jsonWriter.WriteValueAsync(double.MaxValue);
+                await jsonWriter.WriteValueAsync(double.MinValue);
+                await jsonWriter.WriteValueAsync(float.PositiveInfinity);
+                await jsonWriter.WriteValueAsync(float.NegativeInfinity);
+                await jsonWriter.WriteValueAsync(float.NaN);
 
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             Assert.AreEqual(@"[0.0,0.0,0.1,1.0,1.000001,1E-06,4.94065645841247E-324,Infinity,-Infinity,NaN,1.7976931348623157E+308,-1.7976931348623157E+308,Infinity,-Infinity,NaN]", sb.ToString());
@@ -849,20 +848,20 @@ namespace Newtonsoft.Json.Tests
 
             using (JsonWriter jsonWriter = new JsonTextWriter(sw) { Formatting = Formatting.Indented })
             {
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
 
-                await jsonWriter.WriteValueAsync(int.MaxValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(int.MinValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(0).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(-0).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(9L).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(9UL).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(long.MaxValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(long.MinValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(ulong.MaxValue).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(ulong.MinValue).ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync(int.MaxValue);
+                await jsonWriter.WriteValueAsync(int.MinValue);
+                await jsonWriter.WriteValueAsync(0);
+                await jsonWriter.WriteValueAsync(-0);
+                await jsonWriter.WriteValueAsync(9L);
+                await jsonWriter.WriteValueAsync(9UL);
+                await jsonWriter.WriteValueAsync(long.MaxValue);
+                await jsonWriter.WriteValueAsync(long.MinValue);
+                await jsonWriter.WriteValueAsync(ulong.MaxValue);
+                await jsonWriter.WriteValueAsync(ulong.MinValue);
 
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             Console.WriteLine(sb.ToString());
@@ -889,13 +888,13 @@ namespace Newtonsoft.Json.Tests
 
             using (JsonWriter jsonWriter = new JsonTextWriter(sw))
             {
-                await jsonWriter.WriteTokenAsync(JsonToken.StartArray).ConfigureAwait(true);
-                await jsonWriter.WriteTokenAsync(JsonToken.Integer, 1).ConfigureAwait(true);
-                await jsonWriter.WriteTokenAsync(JsonToken.StartObject).ConfigureAwait(true);
-                await jsonWriter.WriteTokenAsync(JsonToken.PropertyName, "string").ConfigureAwait(true);
-                await jsonWriter.WriteTokenAsync(JsonToken.Integer, int.MaxValue).ConfigureAwait(true);
-                await jsonWriter.WriteTokenAsync(JsonToken.EndObject).ConfigureAwait(true);
-                await jsonWriter.WriteTokenAsync(JsonToken.EndArray).ConfigureAwait(true);
+                await jsonWriter.WriteTokenAsync(JsonToken.StartArray);
+                await jsonWriter.WriteTokenAsync(JsonToken.Integer, 1);
+                await jsonWriter.WriteTokenAsync(JsonToken.StartObject);
+                await jsonWriter.WriteTokenAsync(JsonToken.PropertyName, "string");
+                await jsonWriter.WriteTokenAsync(JsonToken.Integer, int.MaxValue);
+                await jsonWriter.WriteTokenAsync(JsonToken.EndObject);
+                await jsonWriter.WriteTokenAsync(JsonToken.EndArray);
             }
 
             Assert.AreEqual(@"[1,{""string"":2147483647}]", sb.ToString());
@@ -909,12 +908,12 @@ namespace Newtonsoft.Json.Tests
 
             using (JsonWriter jsonWriter = new JsonTextWriter(sw))
             {
-                await jsonWriter.WriteTokenAsync(JsonToken.StartArray).ConfigureAwait(true);
+                await jsonWriter.WriteTokenAsync(JsonToken.StartArray);
 
-                await ExceptionAssert.ThrowsAsync<FormatException>(async () => { await jsonWriter.WriteTokenAsync(JsonToken.Integer, "three").ConfigureAwait(true); }, "Input string was not in a correct format.").ConfigureAwait(true);
+                await ExceptionAssert.ThrowsAsync<FormatException>(async () => { await jsonWriter.WriteTokenAsync(JsonToken.Integer, "three"); }, "Input string was not in a correct format.");
 
-                await ExceptionAssert.ThrowsAsync<ArgumentNullException>(async () => { await jsonWriter.WriteTokenAsync(JsonToken.Integer).ConfigureAwait(true); }, @"Value cannot be null.
-Parameter name: value").ConfigureAwait(true);
+                await ExceptionAssert.ThrowsAsync<ArgumentNullException>(async () => { await jsonWriter.WriteTokenAsync(JsonToken.Integer); }, @"Value cannot be null.
+Parameter name: value");
             }
         }
 
@@ -923,8 +922,8 @@ Parameter name: value").ConfigureAwait(true);
         {
             using (JsonWriter jsonWriter = new JsonTextWriter(new StringWriter()))
             {
-                await ExceptionAssert.ThrowsAsync<ArgumentNullException>(async () => { await jsonWriter.WriteTokenAsync(null).ConfigureAwait(true); }).ConfigureAwait(true);
-                await ExceptionAssert.ThrowsAsync<ArgumentNullException>(async () => { await jsonWriter.WriteTokenAsync(null, true).ConfigureAwait(true); }).ConfigureAwait(true);
+                await ExceptionAssert.ThrowsAsync<ArgumentNullException>(async () => { await jsonWriter.WriteTokenAsync(null); });
+                await ExceptionAssert.ThrowsAsync<ArgumentNullException>(async () => { await jsonWriter.WriteTokenAsync(null, true); });
             }
         }
 
@@ -933,10 +932,10 @@ Parameter name: value").ConfigureAwait(true);
         {
             using (JsonWriter jsonWriter = new JsonTextWriter(new StringWriter()))
             {
-                ArgumentOutOfRangeException ex = await ExceptionAssert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await jsonWriter.WriteTokenAsync((JsonToken)int.MinValue)).ConfigureAwait(true);
+                ArgumentOutOfRangeException ex = await ExceptionAssert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await jsonWriter.WriteTokenAsync((JsonToken)int.MinValue));
                 Assert.AreEqual("token", ex.ParamName);
 
-                ex = await ExceptionAssert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await jsonWriter.WriteTokenAsync((JsonToken)int.MinValue, "test")).ConfigureAwait(true);
+                ex = await ExceptionAssert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await jsonWriter.WriteTokenAsync((JsonToken)int.MinValue, "test"));
                 Assert.AreEqual("token", ex.ParamName);
             }
         }
@@ -951,14 +950,14 @@ Parameter name: value").ConfigureAwait(true);
 
                 using (JsonWriter jsonWriter = new JsonTextWriter(sw))
                 {
-                    await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
+                    await jsonWriter.WriteStartArrayAsync();
 
-                    await jsonWriter.WriteValueAsync(0.0).ConfigureAwait(true);
+                    await jsonWriter.WriteValueAsync(0.0);
 
-                    await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
-                    await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                    await jsonWriter.WriteEndArrayAsync();
+                    await jsonWriter.WriteEndArrayAsync();
                 }
-            }, "No token to close. Path ''.").ConfigureAwait(true);
+            }, "No token to close. Path ''.");
         }
 
         [Test]
@@ -983,20 +982,20 @@ Parameter name: value").ConfigureAwait(true);
                 jsonWriter.QuoteChar = '\'';
                 Assert.AreEqual('\'', jsonWriter.QuoteChar);
 
-                await jsonWriter.WriteStartObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartObjectAsync();
 
-                await jsonWriter.WritePropertyNameAsync("propertyName").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(double.NaN).ConfigureAwait(true);
+                await jsonWriter.WritePropertyNameAsync("propertyName");
+                await jsonWriter.WriteValueAsync(double.NaN);
 
                 jsonWriter.IndentChar = '?';
                 Assert.AreEqual('?', jsonWriter.IndentChar);
                 jsonWriter.Indentation = 6;
                 Assert.AreEqual(6, jsonWriter.Indentation);
 
-                await jsonWriter.WritePropertyNameAsync("prop2").ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(123).ConfigureAwait(true);
+                await jsonWriter.WritePropertyNameAsync("prop2");
+                await jsonWriter.WriteValueAsync(123);
 
-                await jsonWriter.WriteEndObjectAsync().ConfigureAwait(true);
+                await jsonWriter.WriteEndObjectAsync();
             }
 
             string expected = @"{
@@ -1022,7 +1021,7 @@ _____'propertyName': NaN,
                 jsonWriter.Formatting = Formatting.Indented;
                 Assert.AreEqual(Formatting.Indented, jsonWriter.Formatting);
 
-                await jsonWriter.WriteValueAsync(data).ConfigureAwait(true);
+                await jsonWriter.WriteValueAsync(data);
             }
 
             string expected = @"""SGVsbG8gd29ybGQu""";
@@ -1049,13 +1048,13 @@ _____'propertyName': NaN,
                 jsonWriter.Formatting = Formatting.Indented;
                 Assert.AreEqual(Formatting.Indented, jsonWriter.Formatting);
 
-                await jsonWriter.WriteStartArrayAsync().ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(data).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync(data).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((object)data).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((byte[])null).ConfigureAwait(true);
-                await jsonWriter.WriteValueAsync((Uri)null).ConfigureAwait(true);
-                await jsonWriter.WriteEndArrayAsync().ConfigureAwait(true);
+                await jsonWriter.WriteStartArrayAsync();
+                await jsonWriter.WriteValueAsync(data);
+                await jsonWriter.WriteValueAsync(data);
+                await jsonWriter.WriteValueAsync((object)data);
+                await jsonWriter.WriteValueAsync((byte[])null);
+                await jsonWriter.WriteValueAsync((Uri)null);
+                await jsonWriter.WriteEndArrayAsync();
             }
 
             string expected = @"[
@@ -1080,41 +1079,41 @@ _____'propertyName': NaN,
             {
                 writer.Formatting = Formatting.Indented;
 
-                await writer.WriteStartArrayAsync().ConfigureAwait(true);
+                await writer.WriteStartArrayAsync();
                 Assert.AreEqual("", writer.Path);
-                await writer.WriteStartObjectAsync().ConfigureAwait(true);
+                await writer.WriteStartObjectAsync();
                 Assert.AreEqual("[0]", writer.Path);
-                await writer.WritePropertyNameAsync("Property1").ConfigureAwait(true);
+                await writer.WritePropertyNameAsync("Property1");
                 Assert.AreEqual("[0].Property1", writer.Path);
-                await writer.WriteStartArrayAsync().ConfigureAwait(true);
+                await writer.WriteStartArrayAsync();
                 Assert.AreEqual("[0].Property1", writer.Path);
-                await writer.WriteValueAsync(1).ConfigureAwait(true);
+                await writer.WriteValueAsync(1);
                 Assert.AreEqual("[0].Property1[0]", writer.Path);
-                await writer.WriteStartArrayAsync().ConfigureAwait(true);
+                await writer.WriteStartArrayAsync();
                 Assert.AreEqual("[0].Property1[1]", writer.Path);
-                await writer.WriteStartArrayAsync().ConfigureAwait(true);
+                await writer.WriteStartArrayAsync();
                 Assert.AreEqual("[0].Property1[1][0]", writer.Path);
-                await writer.WriteStartArrayAsync().ConfigureAwait(true);
+                await writer.WriteStartArrayAsync();
                 Assert.AreEqual("[0].Property1[1][0][0]", writer.Path);
-                await writer.WriteEndObjectAsync().ConfigureAwait(true);
+                await writer.WriteEndObjectAsync();
                 Assert.AreEqual("[0]", writer.Path);
-                await writer.WriteStartObjectAsync().ConfigureAwait(true);
+                await writer.WriteStartObjectAsync();
                 Assert.AreEqual("[1]", writer.Path);
-                await writer.WritePropertyNameAsync("Property2").ConfigureAwait(true);
+                await writer.WritePropertyNameAsync("Property2");
                 Assert.AreEqual("[1].Property2", writer.Path);
-                await writer.WriteStartConstructorAsync("Constructor1").ConfigureAwait(true);
+                await writer.WriteStartConstructorAsync("Constructor1");
                 Assert.AreEqual("[1].Property2", writer.Path);
-                await writer.WriteNullAsync().ConfigureAwait(true);
+                await writer.WriteNullAsync();
                 Assert.AreEqual("[1].Property2[0]", writer.Path);
-                await writer.WriteStartArrayAsync().ConfigureAwait(true);
+                await writer.WriteStartArrayAsync();
                 Assert.AreEqual("[1].Property2[1]", writer.Path);
-                await writer.WriteValueAsync(1).ConfigureAwait(true);
+                await writer.WriteValueAsync(1);
                 Assert.AreEqual("[1].Property2[1][0]", writer.Path);
-                await writer.WriteEndAsync().ConfigureAwait(true);
+                await writer.WriteEndAsync();
                 Assert.AreEqual("[1].Property2[1]", writer.Path);
-                await writer.WriteEndObjectAsync().ConfigureAwait(true);
+                await writer.WriteEndObjectAsync();
                 Assert.AreEqual("[1]", writer.Path);
-                await writer.WriteEndArrayAsync().ConfigureAwait(true);
+                await writer.WriteEndArrayAsync();
                 Assert.AreEqual("", writer.Path);
             }
 
@@ -1149,7 +1148,7 @@ _____'propertyName': NaN,
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc
             };
 
-            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Unspecified)).ConfigureAwait(true);
+            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Unspecified));
 
             Assert.AreEqual(@"""2000-01-01T01:01:01Z""", sw.ToString());
         }
@@ -1165,7 +1164,7 @@ _____'propertyName': NaN,
 
             string script = @"<script type=""text/javascript"">alert('hi');</script>";
 
-            await writer.WriteValueAsync(script).ConfigureAwait(true);
+            await writer.WriteValueAsync(script);
 
             string json = sw.ToString();
 
@@ -1187,7 +1186,7 @@ _____'propertyName': NaN,
 
             string unicode = "\u5f20";
 
-            await writer.WriteValueAsync(unicode).ConfigureAwait(true);
+            await writer.WriteValueAsync(unicode);
 
             string json = sw.ToString();
 
@@ -1204,7 +1203,7 @@ _____'propertyName': NaN,
                 StringEscapeHandling = StringEscapeHandling.Default
             };
 
-            await writer.WriteValueAsync(unicode).ConfigureAwait(true);
+            await writer.WriteValueAsync(unicode);
 
             json = sw.ToString();
 
@@ -1219,9 +1218,9 @@ _____'propertyName': NaN,
             JsonTextWriter writer = new JsonTextWriter(sw);
             writer.QuoteChar = '\'';
 
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
-            await writer.WritePropertyNameAsync("Blah").ConfigureAwait(true);
-            await writer.WriteEndAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
+            await writer.WritePropertyNameAsync("Blah");
+            await writer.WriteEndAsync();
 
             Assert.AreEqual("{'Blah':null}", sw.ToString());
         }
@@ -1234,25 +1233,25 @@ _____'propertyName': NaN,
             writer.Formatting = Formatting.Indented;
             writer.QuoteChar = '\'';
 
-            await writer.WriteStartArrayAsync().ConfigureAwait(true);
+            await writer.WriteStartArrayAsync();
 
-            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)).ConfigureAwait(true);
-            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero)).ConfigureAwait(true);
+            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc));
+            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero));
 
             writer.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)).ConfigureAwait(true);
-            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero)).ConfigureAwait(true);
+            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc));
+            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero));
 
             writer.DateFormatString = "yyyy gg";
-            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)).ConfigureAwait(true);
-            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero)).ConfigureAwait(true);
+            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc));
+            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero));
 
-            await writer.WriteValueAsync(new byte[] { 1, 2, 3 }).ConfigureAwait(true);
-            await writer.WriteValueAsync(TimeSpan.Zero).ConfigureAwait(true);
-            await writer.WriteValueAsync(new Uri("http://www.google.com/")).ConfigureAwait(true);
-            await writer.WriteValueAsync(Guid.Empty).ConfigureAwait(true);
+            await writer.WriteValueAsync(new byte[] { 1, 2, 3 });
+            await writer.WriteValueAsync(TimeSpan.Zero);
+            await writer.WriteValueAsync(new Uri("http://www.google.com/"));
+            await writer.WriteValueAsync(Guid.Empty);
 
-            await writer.WriteEndAsync().ConfigureAwait(true);
+            await writer.WriteEndAsync();
 
             StringAssert.AreEqual(@"[
   '2000-01-01T01:01:01Z',
@@ -1282,12 +1281,12 @@ _____'propertyName': NaN,
             writer.Culture = culture;
             writer.QuoteChar = '\'';
 
-            await writer.WriteStartArrayAsync().ConfigureAwait(true);
+            await writer.WriteStartArrayAsync();
 
-            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)).ConfigureAwait(true);
-            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero)).ConfigureAwait(true);
+            await writer.WriteValueAsync(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc));
+            await writer.WriteValueAsync(new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero));
 
-            await writer.WriteEndAsync().ConfigureAwait(true);
+            await writer.WriteEndAsync();
 
             StringAssert.AreEqual(@"[
   '2000 a.m.',
@@ -1304,7 +1303,7 @@ _____'propertyName': NaN,
             {
                 StringWriter swNew = new StringWriter();
                 char[] buffer = null;
-                buffer = await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(swNew, c.ToString(), '"', true, JavaScriptUtils.DoubleQuoteCharEscapeFlags, StringEscapeHandling.Default, null, buffer).ConfigureAwait(true);
+                buffer = await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(swNew, c.ToString(), '"', true, JavaScriptUtils.DoubleQuoteCharEscapeFlags, StringEscapeHandling.Default, null, buffer);
 
                 StringWriter swOld = new StringWriter();
                 WriteEscapedJavaScriptStringOld(swOld, c.ToString(), '"', true);
@@ -1462,14 +1461,14 @@ _____'propertyName': NaN,
         {
             StringWriter sw = new StringWriter();
             CustomJsonTextWriter writer = new CustomAsyncJsonTextWriter(sw) { Formatting = Formatting.Indented };
-            await writer.WriteStartObjectAsync().ConfigureAwait(true);
+            await writer.WriteStartObjectAsync();
             Assert.AreEqual(WriteState.Object, writer.WriteState);
-            await writer.WritePropertyNameAsync("Property1").ConfigureAwait(true);
+            await writer.WritePropertyNameAsync("Property1");
             Assert.AreEqual(WriteState.Property, writer.WriteState);
             Assert.AreEqual("Property1", writer.Path);
-            await writer.WriteNullAsync().ConfigureAwait(true);
+            await writer.WriteNullAsync();
             Assert.AreEqual(WriteState.Object, writer.WriteState);
-            await writer.WriteEndObjectAsync().ConfigureAwait(true);
+            await writer.WriteEndObjectAsync();
             Assert.AreEqual(WriteState.Start, writer.WriteState);
 
             StringAssert.AreEqual(@"{{{
@@ -1494,7 +1493,7 @@ _____'propertyName': NaN,
                 using (var writer = new JsonTextWriter(stringWriter) { QuoteName = false })
                 {
                     serializer.Serialize(writer, d);
-                    await writer.CloseAsync().ConfigureAwait(true);
+                    await writer.CloseAsync();
                 }
 
                 StringAssert.AreEqual(@"{
@@ -1533,7 +1532,7 @@ null//comment
             JsonTextWriter w = new JsonTextWriter(sw);
             w.Formatting = Formatting.Indented;
 
-            await w.WriteTokenAsync(r, true).ConfigureAwait(true);
+            await w.WriteTokenAsync(r, true);
 
             StringAssert.AreEqual(@"/*comment*//*hi*/*/{/*comment*/
   ""Name"": /*comment*/ true/*comment after true*//*comment after comma*/,
@@ -1786,35 +1785,35 @@ null//comment
 
         public override async Task WritePropertyNameAsync(string name, bool escape, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await SetWriteStateAsync(JsonToken.PropertyName, name, cancellationToken).ConfigureAwait(true);
+            await SetWriteStateAsync(JsonToken.PropertyName, name, cancellationToken);
 
             if (QuoteName)
             {
-                await _writer.WriteAsync(QuoteChar).ConfigureAwait(true);
+                await _writer.WriteAsync(QuoteChar);
             }
 
-            await _writer.WriteAsync(new string(name.ToCharArray().Reverse().ToArray())).ConfigureAwait(true);
+            await _writer.WriteAsync(new string(name.ToCharArray().Reverse().ToArray()));
 
             if (QuoteName)
             {
-                await _writer.WriteAsync(QuoteChar).ConfigureAwait(true);
+                await _writer.WriteAsync(QuoteChar);
             }
 
-            await _writer.WriteAsync(':').ConfigureAwait(true);
+            await _writer.WriteAsync(':');
         }
 
         public override async Task WriteNullAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await SetWriteStateAsync(JsonToken.Null, null, cancellationToken).ConfigureAwait(true);
+            await SetWriteStateAsync(JsonToken.Null, null, cancellationToken);
 
-            await _writer.WriteAsync("NULL!!!").ConfigureAwait(true);
+            await _writer.WriteAsync("NULL!!!");
         }
 
         public override async Task WriteStartObjectAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await SetWriteStateAsync(JsonToken.StartObject, null, cancellationToken).ConfigureAwait(true);
+            await SetWriteStateAsync(JsonToken.StartObject, null, cancellationToken);
 
-            await _writer.WriteAsync("{{{").ConfigureAwait(true);
+            await _writer.WriteAsync("{{{");
         }
 
         public override Task WriteEndObjectAsync(CancellationToken cancellationToken = default(CancellationToken))
