@@ -406,6 +406,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
         }
+
         [Test]
         public async Task ReadAsDateTimeOffsetBadStringAsync()
         {
@@ -419,7 +420,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () => { await reader.ReadAsDateTimeOffsetAsync(); }, "Could not convert string to DateTimeOffset: blablahbla. Path 'Offset', line 1, position 22.");
+            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () =>
+            {
+                await reader.ReadAsDateTimeOffsetAsync();
+            }, "Could not convert string to DateTimeOffset: blablahbla. Path 'Offset', line 1, position 22.");
         }
 
         [Test]
@@ -570,7 +574,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             Assert.IsTrue(await reader.ReadAsync());
             Assert.AreEqual(JsonToken.PropertyName, reader.TokenType);
 
-            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () => { await reader.ReadAsInt32Async(); }, "Input string '1.1' is not a valid integer. Path 'Name', line 1, position 12.");
+            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () =>
+            {
+                await reader.ReadAsInt32Async();
+            }, "Input string '1.1' is not a valid integer. Path 'Name', line 1, position 12.");
         }
 
         [Test]
@@ -713,9 +720,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
             Assert.IsTrue(await reader.ReadAsync());
 
-            await ExceptionAssert.ThrowsAsync<JsonReaderException>(
-                async () => { await reader.ReadAsDoubleAsync(); },
-                "Could not convert string to double: Trump. Path '[0]', line 1, position 8.");
+            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () =>
+            {
+                await reader.ReadAsDoubleAsync();
+            }, "Could not convert string to double: Trump. Path '[0]', line 1, position 8.");
 
             Assert.AreEqual(1d, await reader.ReadAsDoubleAsync());
             Assert.IsTrue(await reader.ReadAsync());
@@ -744,9 +752,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             Assert.IsTrue(await reader.ReadAsync());
             Assert.IsTrue(await reader.ReadAsync());
 
-            await ExceptionAssert.ThrowsAsync<JsonReaderException>(
-                async () => { await reader.ReadAsync(); },
-                "Error parsing boolean value. Path 'Test1', line 1, position 14.");
+            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () =>
+            {
+                await reader.ReadAsync();
+            }, "Error parsing boolean value. Path 'Test1', line 1, position 14.");
 
             Assert.IsTrue(await reader.ReadAsync());
             Assert.IsTrue(await reader.ReadAsync());
@@ -761,9 +770,10 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
             Assert.IsTrue(await reader.ReadAsync());
             Assert.IsTrue(await reader.ReadAsync());
 
-            await ExceptionAssert.ThrowsAsync<JsonReaderException>(
-                async () => { await reader.ReadAsStringAsync(); },
-                "Unexpected character encountered while parsing value: 1. Path 'Test1', line 1, position 14.");
+            await ExceptionAssert.ThrowsAsync<JsonReaderException>(async () =>
+            {
+                await reader.ReadAsStringAsync();
+            }, "Unexpected character encountered while parsing value: 1. Path 'Test1', line 1, position 14.");
 
             Assert.IsTrue(await reader.ReadAsync());
             Assert.IsTrue(await reader.ReadAsync());
@@ -858,8 +868,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
         {
             string json = @"/*comment*/{/*comment*/Name:/*comment*/true/*comment*/,/*comment*/
         ""ExpiryDate"":/*comment*/new
-" + StringUtils.LineFeed +
-                          @"Date
+" + StringUtils.LineFeed + @"Date
 (/*comment*/null/*comment*/),
         ""Price"": 3.99,
         ""Sizes"":/*comment*/[/*comment*/
@@ -1069,6 +1078,7 @@ namespace Newtonsoft.Json.Tests.JsonTextReaderTests
 
                     Console.WriteLine($"{i} - {jsonTextReader.TokenType} - {jsonTextReader.Value}");
                 }
+
                 //var result = serializer.Deserialize(jsonTextReader).ToString();
                 //Console.WriteLine("client receive: " + new UTF8Encoding().GetBytes(result).Length);
             }
@@ -1358,6 +1368,7 @@ third line", jsonTextReader.Value);
             {
                 writer.WriteValue(i);
             }
+
             writer.WriteEndArray();
 
             string json = sw.ToString();
@@ -1369,6 +1380,7 @@ third line", jsonTextReader.Value);
                 Assert.IsTrue(await reader.ReadAsync());
                 Assert.AreEqual((long)i, reader.Value);
             }
+
             Assert.IsTrue(await reader.ReadAsync());
             Assert.IsFalse(await reader.ReadAsync());
         }
@@ -1444,33 +1456,7 @@ third line", jsonTextReader.Value);
         {
             string newLinesText = StringUtils.CarriageReturn + StringUtils.CarriageReturnLineFeed + StringUtils.LineFeed + StringUtils.CarriageReturnLineFeed + " " + StringUtils.CarriageReturn + StringUtils.CarriageReturnLineFeed;
 
-            string json =
-                newLinesText
-                + "{" + newLinesText
-                + "'" + newLinesText
-                + "name1" + newLinesText
-                + "'" + newLinesText
-                + ":" + newLinesText
-                + "[" + newLinesText
-                + "new" + newLinesText
-                + "Date" + newLinesText
-                + "(" + newLinesText
-                + "1" + newLinesText
-                + "," + newLinesText
-                + "null" + newLinesText
-                + "/*" + newLinesText
-                + "blah comment" + newLinesText
-                + "*/" + newLinesText
-                + ")" + newLinesText
-                + "," + newLinesText
-                + "1.1111" + newLinesText
-                + "]" + newLinesText
-                + "," + newLinesText
-                + "name2" + newLinesText
-                + ":" + newLinesText
-                + "{" + newLinesText
-                + "}" + newLinesText
-                + "}" + newLinesText;
+            string json = newLinesText + "{" + newLinesText + "'" + newLinesText + "name1" + newLinesText + "'" + newLinesText + ":" + newLinesText + "[" + newLinesText + "new" + newLinesText + "Date" + newLinesText + "(" + newLinesText + "1" + newLinesText + "," + newLinesText + "null" + newLinesText + "/*" + newLinesText + "blah comment" + newLinesText + "*/" + newLinesText + ")" + newLinesText + "," + newLinesText + "1.1111" + newLinesText + "]" + newLinesText + "," + newLinesText + "name2" + newLinesText + ":" + newLinesText + "{" + newLinesText + "}" + newLinesText + "}" + newLinesText;
 
             int count = 0;
             StringReader sr = new StringReader(newLinesText);
@@ -1632,6 +1618,73 @@ third line", jsonTextReader.Value);
             while (await reader.ReadAsync())
             {
             }
+        }
+
+        [Test]
+        public void AsyncMethodsAlreadyCancelled()
+        {
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            source.Cancel();
+
+            JsonTextReader reader = new JsonTextReader(new StreamReader(Stream.Null));
+            Assert.IsTrue(reader.ReadAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsBooleanAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsBytesAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDateTimeAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDateTimeOffsetAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDecimalAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsInt32Async(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsStringAsync(token).IsCanceled);
+        }
+
+        private class NoOverridesDerivedJsonTextAsync : JsonTextReader
+        {
+            public NoOverridesDerivedJsonTextAsync()
+                : base(new StreamReader(Stream.Null))
+            {
+            }
+        }
+
+        private class MinimalOverridesDerivedJsonReader : JsonReader
+        {
+            public override bool Read() => true;
+        }
+
+        [Test]
+        public void AsyncMethodsAlreadyCancelledOnTextReaderSubclass()
+        {
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            source.Cancel();
+
+            JsonTextReader reader = new NoOverridesDerivedJsonTextAsync();
+            Assert.IsTrue(reader.ReadAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsBooleanAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsBytesAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDateTimeAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDateTimeOffsetAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDecimalAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsInt32Async(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsStringAsync(token).IsCanceled);
+        }
+
+        [Test]
+        public void AsyncMethodsAlreadyCancelledOnReaderSubclass()
+        {
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+            source.Cancel();
+
+            JsonReader reader = new MinimalOverridesDerivedJsonReader();
+            Assert.IsTrue(reader.ReadAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsBooleanAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsBytesAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDateTimeAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDateTimeOffsetAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsDecimalAsync(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsInt32Async(token).IsCanceled);
+            Assert.IsTrue(reader.ReadAsStringAsync(token).IsCanceled);
         }
     }
 }
