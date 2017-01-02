@@ -230,6 +230,7 @@
     <Compile Include="JsonTextReaderTests\MiscTests.cs" />
     <Compile Include="JsonTextReaderTests\ExceptionHandlingTests.cs" />
     <Compile Include="JsonTextReaderTests\ParseAsyncTests.cs" />
+    <Compile Include="JsonTextReaderTests\ReadAsyncTests.cs" />
     <Compile Include="JsonTextWriterAsyncTests.cs" />
     <Compile Include="TestObjects\JsonReaderStubWithIsClosed.cs" />
     <Compile Include="TestObjects\JsonTextReaderTests\FakeArrayPool.cs" />

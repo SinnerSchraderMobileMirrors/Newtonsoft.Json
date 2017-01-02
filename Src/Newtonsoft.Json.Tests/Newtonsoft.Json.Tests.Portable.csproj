@@ -132,6 +132,7 @@
     <Compile Include="JsonTextReaderTests\MiscTests.cs" />
     <Compile Include="JsonTextReaderTests\ParseAsyncTests.cs" />
     <Compile Include="JsonTextReaderTests\ParseTests.cs" />
+    <Compile Include="JsonTextReaderTests\ReadAsyncTests.cs" />
     <Compile Include="JsonTextReaderTests\ReadTests.cs" />
     <Compile Include="JsonValidatingReaderTests.cs" />
     <Compile Include="Linq\ComponentModel\BindingTests.cs" />
