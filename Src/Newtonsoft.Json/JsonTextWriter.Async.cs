@@ -40,7 +40,9 @@ namespace Newtonsoft.Json
     {
         // It's not safe to perform the async methods here in a derived class as if the synchronous equivalent
         // has been overriden then the asychronous method will no longer be doing the same operation.
+#if !(NET20 || NET35 || NET40 || PORTABLE40) // Double-check this isn't included inappropriately.
         private readonly bool _safeAsync;
+#endif
 
         /// <summary>
         /// Asynchronously flushes whatever is in the buffer to the destination and also flushes the destination.
