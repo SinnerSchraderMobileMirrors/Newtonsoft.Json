@@ -160,6 +160,10 @@ namespace Newtonsoft.Json
             _indentation = 2;
 
             UpdateCharEscapeFlags();
+
+#if !(NET20 || NET35 || NET40 || PORTABLE40)
+            _safeAsync = GetType() == typeof(JsonTextWriter);
+#endif
         }
 
         /// <summary>

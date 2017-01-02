@@ -41,20 +41,7 @@ namespace Newtonsoft.Json
     {
         // It's not safe to perform the async methods here in a derived class as if the synchronous equivalent
         // has been overriden then the asychronous method will no longer be doing the same operation.
-        private bool? _safeAsync;
-
-        private bool SafeAsync
-        {
-            get
-            {
-                if (!_safeAsync.HasValue)
-                {
-                    _safeAsync = GetType() == typeof(JsonTextReader);
-                }
-
-                return _safeAsync.GetValueOrDefault();
-            }
-        }
+        private readonly bool _safeAsync;
 
         /// <summary>
         /// Asynchronously reads the next JSON token from the source.
@@ -66,7 +53,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<bool> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsync(cancellationToken) : base.ReadAsync(cancellationToken);
+            return _safeAsync ? DoReadAsync(cancellationToken) : base.ReadAsync(cancellationToken);
         }
 
         internal async Task<bool> DoReadAsync(CancellationToken cancellationToken)
@@ -1367,7 +1354,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<bool?> ReadAsBooleanAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsBooleanAsync(cancellationToken) : base.ReadAsBooleanAsync(cancellationToken);
+            return _safeAsync ? DoReadAsBooleanAsync(cancellationToken) : base.ReadAsBooleanAsync(cancellationToken);
         }
 
         internal async Task<bool?> DoReadAsBooleanAsync(CancellationToken cancellationToken)
@@ -1497,7 +1484,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<byte[]> ReadAsBytesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsBytesAsync(cancellationToken) : base.ReadAsBytesAsync(cancellationToken);
+            return _safeAsync ? DoReadAsBytesAsync(cancellationToken) : base.ReadAsBytesAsync(cancellationToken);
         }
 
         internal async Task<byte[]> DoReadAsBytesAsync(CancellationToken cancellationToken)
@@ -1633,7 +1620,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<DateTime?> ReadAsDateTimeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsDateTimeAsync(cancellationToken) : base.ReadAsDateTimeAsync(cancellationToken);
+            return _safeAsync ? DoReadAsDateTimeAsync(cancellationToken) : base.ReadAsDateTimeAsync(cancellationToken);
         }
 
         internal async Task<DateTime?> DoReadAsDateTimeAsync(CancellationToken cancellationToken)
@@ -1651,7 +1638,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<DateTimeOffset?> ReadAsDateTimeOffsetAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsDateTimeOffsetAsync(cancellationToken) : base.ReadAsDateTimeOffsetAsync(cancellationToken);
+            return _safeAsync ? DoReadAsDateTimeOffsetAsync(cancellationToken) : base.ReadAsDateTimeOffsetAsync(cancellationToken);
         }
 
         internal async Task<DateTimeOffset?> DoReadAsDateTimeOffsetAsync(CancellationToken cancellationToken)
@@ -1669,7 +1656,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<decimal?> ReadAsDecimalAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsDecimalAsync(cancellationToken) : base.ReadAsDecimalAsync(cancellationToken);
+            return _safeAsync ? DoReadAsDecimalAsync(cancellationToken) : base.ReadAsDecimalAsync(cancellationToken);
         }
 
         internal async Task<decimal?> DoReadAsDecimalAsync(CancellationToken cancellationToken)
@@ -1687,7 +1674,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<double?> ReadAsDoubleAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsDoubleAsync(cancellationToken) : base.ReadAsDoubleAsync(cancellationToken);
+            return _safeAsync ? DoReadAsDoubleAsync(cancellationToken) : base.ReadAsDoubleAsync(cancellationToken);
         }
 
         internal async Task<double?> DoReadAsDoubleAsync(CancellationToken cancellationToken)
@@ -1705,7 +1692,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<int?> ReadAsInt32Async(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsInt32Async(cancellationToken) : base.ReadAsInt32Async(cancellationToken);
+            return _safeAsync ? DoReadAsInt32Async(cancellationToken) : base.ReadAsInt32Async(cancellationToken);
         }
 
         internal async Task<int?> DoReadAsInt32Async(CancellationToken cancellationToken)
@@ -1723,7 +1710,7 @@ namespace Newtonsoft.Json
         /// execute synchronously, returning an already-completed task.</remarks>
         public override Task<string> ReadAsStringAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return SafeAsync ? DoReadAsStringAsync(cancellationToken) : base.ReadAsStringAsync(cancellationToken);
+            return _safeAsync ? DoReadAsStringAsync(cancellationToken) : base.ReadAsStringAsync(cancellationToken);
         }
 
         internal async Task<string> DoReadAsStringAsync(CancellationToken cancellationToken)

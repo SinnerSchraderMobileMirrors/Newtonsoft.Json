@@ -82,6 +82,10 @@ namespace Newtonsoft.Json
 
             _reader = reader;
             _lineNumber = 1;
+
+#if !(NET20 || NET35 || NET40 || PORTABLE40)
+            _safeAsync = GetType() == typeof(JsonTextReader);
+#endif
         }
 
 #if DEBUG
