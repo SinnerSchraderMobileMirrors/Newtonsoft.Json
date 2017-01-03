@@ -323,9 +323,16 @@ namespace Newtonsoft.Json.Utilities
 
 #if !(NET20 || NET35 || NET40 || PORTABLE40)
 
-        public static async Task<char[]> WriteEscapedJavaScriptStringAsync(TextWriter writer, string s, char delimiter, bool appendDelimiters,
-    bool[] charEscapeFlags, StringEscapeHandling stringEscapeHandling, IArrayPool<char> bufferPool, char[] writeBuffer, CancellationToken cancellationToken = default(CancellationToken))
+        public class BufferHolder
         {
+            public char[] Buffer;
+        }
+
+        public static async Task WriteEscapedJavaScriptStringAsync(TextWriter writer, string s, char delimiter, bool appendDelimiters,
+            bool[] charEscapeFlags, StringEscapeHandling stringEscapeHandling, IArrayPool<char> bufferPool, BufferHolder writeBufferHolder, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            char[] writeBuffer = writeBufferHolder.Buffer;
+
             // leading delimiter
             if (appendDelimiters)
             {
@@ -478,7 +485,7 @@ namespace Newtonsoft.Json.Utilities
                 await writer.WriteAsync(delimiter, cancellationToken).ConfigureAwait(false);
             }
 
-            return writeBuffer;
+            writeBufferHolder.Buffer = writeBuffer;
         }
 
 #endif

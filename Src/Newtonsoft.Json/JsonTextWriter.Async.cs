@@ -42,6 +42,7 @@ namespace Newtonsoft.Json
         // has been overriden then the asychronous method will no longer be doing the same operation.
 #if !(NET20 || NET35 || NET40 || PORTABLE40) // Double-check this isn't included inappropriately.
         private readonly bool _safeAsync;
+        private JavaScriptUtils.BufferHolder _bufferHolder;
 #endif
 
         /// <summary>
@@ -273,7 +274,13 @@ namespace Newtonsoft.Json
         private async Task WriteEscapedStringAsync(string value, bool quote, CancellationToken cancellationToken)
         {
             EnsureWriteBuffer();
-            _writeBuffer = await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(_writer, value, _quoteChar, quote, _charEscapeFlags, StringEscapeHandling, _arrayPool, _writeBuffer, cancellationToken).ConfigureAwait(false);
+            if (_bufferHolder == null)
+            {
+                _bufferHolder = new JavaScriptUtils.BufferHolder();
+            }
+            _bufferHolder.Buffer = _writeBuffer;
+            await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(_writer, value, _quoteChar, quote, _charEscapeFlags, StringEscapeHandling, _arrayPool, _bufferHolder, cancellationToken).ConfigureAwait(false);
+            _writeBuffer = _bufferHolder.Buffer;
         }
 
         /// <summary>

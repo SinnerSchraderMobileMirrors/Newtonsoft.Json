@@ -53,7 +53,7 @@ namespace Newtonsoft.Json.TestConsole
             //t.DeserializeLargeJson();
 
             //PerformanceTests t = new PerformanceTests();
-            DeserializeJsonAsync();
+            SerializeJsonAsync();
             //t.Iterations = 50000;
             //t.BenchmarkDeserializeMethod<TestClass>(PerformanceTests.SerializeMethod.JsonNet, PerformanceTests.JsonText);
 

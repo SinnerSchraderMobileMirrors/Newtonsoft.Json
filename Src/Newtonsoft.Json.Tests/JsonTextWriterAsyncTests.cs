@@ -1302,8 +1302,8 @@ _____'propertyName': NaN,
             do
             {
                 StringWriter swNew = new StringWriter();
-                char[] buffer = null;
-                buffer = await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(swNew, c.ToString(), '"', true, JavaScriptUtils.DoubleQuoteCharEscapeFlags, StringEscapeHandling.Default, null, buffer);
+                JavaScriptUtils.BufferHolder bufferHolder = new JavaScriptUtils.BufferHolder();
+                await JavaScriptUtils.WriteEscapedJavaScriptStringAsync(swNew, c.ToString(), '"', true, JavaScriptUtils.DoubleQuoteCharEscapeFlags, StringEscapeHandling.Default, null, bufferHolder);
 
                 StringWriter swOld = new StringWriter();
                 WriteEscapedJavaScriptStringOld(swOld, c.ToString(), '"', true);
